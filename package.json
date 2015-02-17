@@ -1,0 +1,28 @@
+{
+  "name": "SF-Food-Truck-Finder",
+  "version": "0.0.0",
+  "description": "Find food trucks near you!",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/skeller88/uber-challenge.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/skeller88/uber-challenge/issues"
+  },
+  "homepage": "https://github.com/skeller88/uber-challenge",
+  "dependencies": {
+    "backbone": "^1.1.2",
+    "browserify": "^8.1.3",
+    "jquery": "^2.1.3"
+  },
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-browserify": "^3.3.0"
+  }
+}
