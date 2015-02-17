@@ -5,7 +5,7 @@ module.exports = function(grunt) {
             'app/index.js': ['app/js/index.js']
         },
         watch: {
-            files: ['app/js/*.js'],
+            files: ['app/js/**/*.js'],
             tasks: ['browserify']
         }
     });

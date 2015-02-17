@@ -1,9 +1,11 @@
 _ = require('underscore');
 $ = require('jquery');
 Backbone = require('backbone');
+Backbone.$ = $;
 
-var app = app || {};
+var AppView = require('./views/AppView');
 
+console.log(AppView);
 $(function() {
-    new app.AppView();
+    new AppView();
 });
