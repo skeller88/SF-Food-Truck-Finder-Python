@@ -4,8 +4,9 @@ Backbone = require('backbone');
 Backbone.$ = $;
 
 var AppView = require('./views/AppView');
+var AppModel = require('./models/AppModel');
 
-console.log(AppView);
 $(function() {
+    new AppModel();
     new AppView();
 });

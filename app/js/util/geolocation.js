@@ -1,4 +1,6 @@
-function showError(error) {
+FoodTrucks = require('../collections/FoodTrucks');
+
+function defaultError(error) {
     switch(error.code) {
         case error.PERMISSION_DENIED:
             error = "User denied the request for Geolocation.";
@@ -17,16 +19,20 @@ function showError(error) {
     console.log(error);
 }
 
-function showPosition(position) {
+function defaultSuccess(position) {
     latitude = position.coords.latitude;
     longitude = position.coords.longitude;
 
     console.log(latitude, longitude);
 }
 
-module.exports = function() {
+module.exports = function(success, error) {
     if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(showPosition, showError);
+        var error = error || defaultError;
+        var success = success || defaultSuccess;
+
+        navigator.geolocation.getCurrentPosition(
+            success, error);
     } else {
         console.log('Geolocation is not supported by this browser. You need' +
             ' a different browser to use this app.');

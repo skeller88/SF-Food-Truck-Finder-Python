@@ -1,6 +1,5 @@
 $ = require('jquery');
 Backbone = require('backbone');
-geolocation = require('../util/geolocation');
 
 module.exports = Backbone.View.extend({
     el: '#food-truck-app',
@@ -9,7 +8,7 @@ module.exports = Backbone.View.extend({
     },
     // event handlers
     findFoodTrucks: function() {
-        geolocation();
+        // emit event to model
         console.log('findFoodTrucks');
     },
     initialize: function() {
