@@ -7,6 +7,5 @@ var AppView = require('./views/AppView');
 var AppModel = require('./models/AppModel');
 
 $(function() {
-    new AppModel();
-    new AppView();
+    new AppView({ model: new AppModel() });
 });

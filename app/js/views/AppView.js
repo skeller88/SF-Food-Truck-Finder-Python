@@ -1,6 +1,8 @@
 $ = require('jquery');
 Backbone = require('backbone');
 
+var FoodTrucksView = require('./FoodTrucksView');
+
 module.exports = Backbone.View.extend({
     el: '#food-truck-app',
     events: {
@@ -12,6 +14,12 @@ module.exports = Backbone.View.extend({
         console.log('findFoodTrucks');
     },
     initialize: function() {
-        console.log('initialized');
+        this.foodTrucksView = new FoodTrucksView({
+            collection: this.model.get('foodTrucks')
+        });
+    },
+    render: function() {
+        return this.$el.html();
     }
+
 });
