@@ -9,4 +9,10 @@ Backbone.$ = $;
 * @param {string} attributes.serves  - food served by the food truck
 */
 
-module.exports = Backbone.Model.extend({});
+module.exports = Backbone.Model.extend({
+    defaults: {
+        'address': 'No address for this food truck',
+        'applicant': 'Unnamed food truck',
+        'fooditems': 'No food items listed'
+    }
+});

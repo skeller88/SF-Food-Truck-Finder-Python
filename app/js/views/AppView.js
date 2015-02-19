@@ -17,9 +17,12 @@ module.exports = Backbone.View.extend({
         this.foodTrucksView = new FoodTrucksView({
             collection: this.model.get('foodTrucks')
         });
+        this.render();
     },
     render: function() {
-        return this.$el.html();
+        console.log('render AppView');
+        return this.$el.html(
+            this.foodTrucksView.$el);
     }
 
 });

@@ -1,30 +1,44 @@
 $ = require('jquery');
+_ = require('underscore');
 Backbone = require('backbone');
 Backbone.$ = $;
 
 var FoodTruck = require('../models/FoodTruck');
 var geolocation = require('../util/geolocation');
 
+var APP_TOKEN = 'bjp8KrRvAPtuf809u1UXnI0Z8';
 // in meters
 var DEFAULT_RADIUS = 100000;
 var FOOD_TRUCK_RESOURCE = 'https://data.sfgov.org/resource/rqzj-sfat.json';
 var QUERY_STRING_START = '?$where=within_circle(location, ';
 
 module.exports = Backbone.Collection.extend({
+    foodTruckKeys: ['address', 'applicant', 'fooditems'],
     getNearbyFoodTrucks: function() {
-        console.log('get food trucks');
+        console.log('getNearbyFoodTrucks');
         this.fetch({
-            'X-App-Token': 'bjp8KrRvAPtuf809u1UXnI0Z8'
+            error: function(collection, response) {
+                console.log('getNearbyFoodTrucks failed ', response);
+            },
+            success: function(collection, response) {
+                console.log('getNearbyFoodTrucks succeeded');
+            },
+            'X-App-Token': APP_TOKEN
         });
     },
     initialize: function(models, options) {
         this.coordinates = {};
         this.withinRadius = DEFAULT_RADIUS;
-        this.set('withinRadius', DEFAULT_RADIUS);
         this.on('updateCoordinates', this.getNearbyFoodTrucks);
         this.updateCoordinates();
     },
     model: FoodTruck,
+    parse: function(models, options) {
+        var self = this;
+        return _.map(models, function(model) {
+            return _.pick(model, self.foodTruckKeys);
+        });
+    },
     updateCoordinates: function() {
         console.log('updateCoordinates');
         var self = this;
