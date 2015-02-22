@@ -5,11 +5,10 @@ var foodTruckSchema = mongoose.Schema({
     fooditems: String,
     loc: {
         index: '2dsphere',
+        // [longitude, latitude]
         type: [Number],
     },
     name: String
 });
 
-var FoodTruck = mongoose.model('FoodTruck', foodTruckSchema);
-
-module.exports = FoodTruck;
+module.exports = mongoose.model('FoodTruck', foodTruckSchema);
