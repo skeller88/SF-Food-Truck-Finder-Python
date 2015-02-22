@@ -3,7 +3,7 @@ var mongoose = require('mongoose');
 var foodTruckSchema = mongoose.Schema({
     address: String,
     fooditems: String,
-    loc: {
+    coordinates: {
         index: '2dsphere',
         // [longitude, latitude]
         type: [Number],
