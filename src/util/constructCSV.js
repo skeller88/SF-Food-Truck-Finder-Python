@@ -14,8 +14,8 @@ var CONNECTION_STRING = require('./dbHelpers').CONNECTION_STRING;
 APP_TOKEN = 'S9xZv2avu4REIdEZhsDGgglvS';
 var FOOD_TRUCK_HOST = 'data.sfgov.org';
 var FOOD_TRUCK_PATH = '/resource/jjew-r69b.csv';
-var queryString1 = '?$limit=50000&$order=:id';
-var queryString2 = '?$limit=50000&$order=:id&$offset=50000';
+var queryString1 = '?$limit=50&$order=:id';
+var queryString2 = '?$limit=50&$order=:id&$offset=50';
 
 var endpointOptions = {
     headers: {
@@ -54,28 +54,30 @@ function addCSVToDatabase(res) {
 
         var foodTruckDocs = convertDataToDocs(foodTrucks);
 
-        console.log(foodTrucks.length, foodTruckDocs.length);
+        console.log(foodTruckDocs);
 
-        // mongoose.connect(CONNECTION_STRING);
+        mongoose.connect(CONNECTION_STRING);
 
-        // var db = mongoose.connection;
+        var db = mongoose.connection;
 
-        // // If the Node process ends, close the Mongoose connection
-        // process.on('SIGINT', function() {
-        //     mongoose.connection.close(function () {
-        //         console.log('Mongoose default connection disconnected through app termination');
-        //         process.exit(0);
-        //     });
-        // });
+        // If the Node process ends, close the Mongoose connection
+        process.on('SIGINT', function() {
+            mongoose.connection.close(function () {
+                console.log('Mongoose default connection disconnected through app termination');
+                process.exit(0);
+            });
+        });
 
-        // db.once('open', function() {
-        //     createFoodTrucks(foodTruckDocs)
-        //     .then(function() {
-        //         mongoose.disconnect();
-        //     });
-        // });
+        db.once('open', function() {
+            FoodTruck.remove(function() {
+                createFoodTrucks(foodTruckDocs)
+                .then(function() {
+                    mongoose.disconnect();
+                });
+            });
+        });
 
-        // db.on('error', console.error.bind(console, 'connection error:'));
+        db.on('error', console.error.bind(console, 'connection error:'));
     });
 }
 
@@ -96,6 +98,7 @@ function createFoodTrucks(foodTrucks) {
     return FoodTruck.create(foodTrucks, function(err, success) {
         if (err) {
             console.error(err);
+            mongoose.disconnect();
         }
         var created = Array.prototype.slice.call(arguments, 1);
         console.log('Added', created.length, 'food trucks.');
