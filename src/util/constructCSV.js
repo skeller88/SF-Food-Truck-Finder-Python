@@ -71,8 +71,7 @@ async.parallel([
 
     foodTruckDocs = convertDataToDocs(allFoodTrucks);
 
-    console.log(foodTruckDocs.length)
-//    foodTruckHelpers.updateDatabase(foodTruckDocs);
+    foodTruckHelpers.updateDatabase(foodTruckDocs);
 });
 
 // for use in async.parallel()

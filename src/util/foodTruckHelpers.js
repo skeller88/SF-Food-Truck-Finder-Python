@@ -20,8 +20,13 @@ exports.updateDatabase = function(foodTrucks) {
         FoodTruck.remove(function(err, removedCount) {
             console.log('Removed ', removedCount, ' food truck models.');
 
-            exports.createFoodTrucks(foodTruckDocs)
-            .then(function() {
+            FoodTruck.collection.insert(foodTrucks, function(err, docs) {
+                if (err) {
+                    console.error(err);
+                    mongoose.disconnect();
+                }
+                console.log('Added', docs.length, 'food trucks.');
+
                 mongoose.disconnect();
             });
         });
@@ -29,17 +34,6 @@ exports.updateDatabase = function(foodTrucks) {
 
     db.on('error', console.error.bind(console, 'connection error:'));
 }
-
-exports.createFoodTrucks = function(foodTrucks) {
-    return FoodTruck.create(foodTrucks, function(err, success) {
-        if (err) {
-            console.error(err);
-            mongoose.disconnect();
-        }
-        var created = Array.prototype.slice.call(arguments, 1);
-        console.log('Added', created.length, 'food trucks.');
-    });
-};
 
 exports.findNearbyFoodTrucks = function() {
     var point = {
