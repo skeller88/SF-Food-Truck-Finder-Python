@@ -11,5 +11,6 @@ module.exports = Backbone.View.extend({
     },
     tagName: 'tr',
     template: _.template(
-        '<td><%= applicant %></td><td><%= address %></td><td><%= fooditems %></td>')
+        '<td><%= distance %><td><%= name %></td><td><%= address %></td>' +
+        '<td><%= fooditems %></td>')
 });

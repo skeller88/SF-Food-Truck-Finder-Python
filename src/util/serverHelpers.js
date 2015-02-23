@@ -9,13 +9,13 @@ exports.collectData = function(res, callback) {
     });
 
     res.on('error', function(err) {
-        console.error('error', err)
+        console.error('error', err);
     });
 
     res.on('end', function() {
-        callback(null, body)
+        callback(null, body);
     });
-}
+};
 
 // Given an array of objects, maps the objects to the foodTruckSchema in
 // src/models/foodtruck.js

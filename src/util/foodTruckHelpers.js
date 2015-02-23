@@ -69,7 +69,7 @@ exports.findClosestFoodTrucks = function(coordinates) {
         }
     }], function(err, result) {
         if (err) {
-            console.log(err);
+            throw Error(err);
         }
         return result;
     });

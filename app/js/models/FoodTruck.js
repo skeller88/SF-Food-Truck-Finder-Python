@@ -12,7 +12,7 @@ Backbone.$ = $;
 module.exports = Backbone.Model.extend({
     defaults: {
         'address': 'No address for this food truck',
-        'applicant': 'Unnamed food truck',
+        'name': 'Unnamed food truck',
         'fooditems': 'No food items listed'
     }
 });

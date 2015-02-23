@@ -6,6 +6,6 @@ exports.findClosestFoodTrucks = function(req, res, next) {
     var coordinates = [longitude, latitude];
     foodTruckHelpers.findClosestFoodTrucks(coordinates)
     .then(function(result) {
-        console.log(result.length);
+        res.status(200).send(result)
     });
 };
