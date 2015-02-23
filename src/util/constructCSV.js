@@ -13,7 +13,10 @@ var serverHelpers = require('./serverHelpers');
 // determine if necessary to encrypt or if cleartext ok.
 APP_TOKEN = 'S9xZv2avu4REIdEZhsDGgglvS';
 var FOOD_TRUCK_HOST = 'data.sfgov.org';
-var FOOD_TRUCK_PATH = '/resource/jjew-r69b.json';
+// TODO(shane): refactor to use the larger and more comprehensive data set
+// including the times when the food truck is open:
+// var FOOD_TRUCK_PATH = '/resource/jjew-r69b.json';
+var FOOD_TRUCK_PATH = '/resource/rqzj-sfat.json';
 
 var numRecords = 500;
 var queryString1 = '?$limit=' + numRecords + '&$order=:id';
@@ -73,5 +76,5 @@ async.parallel([
 
     console.log(foodTruckDocs.length);
 
-//    foodTruckHelpers.updateDatabase(foodTruckDocs);
+    foodTruckHelpers.updateDatabase(foodTruckDocs);
 });
