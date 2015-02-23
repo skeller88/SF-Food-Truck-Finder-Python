@@ -6,7 +6,7 @@ var foodTruckSchema = mongoose.Schema({
     coordinates: {
         index: '2dsphere',
         // [longitude, latitude]
-        type: [Number],
+        type: [Number]
     },
     name: String
 });
