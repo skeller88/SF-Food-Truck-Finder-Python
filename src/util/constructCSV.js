@@ -1,13 +1,13 @@
-var _ = require('underscore');
 var async = require('async');
 var http = require('http');
 var MongoClient = require('mongodb').MongoClient;
 var mongoose = require('mongoose');
 var parse = require('csv-parse');
 
-var promise = require('./promise');
 var FoodTruck = require('../models/foodtruck');
 var foodTruckHelpers = require('./foodTruckHelpers');
+var promise = require('./promise');
+var serverHelpers = require('./serverHelpers');
 
 // TODO(shane): change token to food truck finder token.
 // determine if necessary to encrypt or if cleartext ok.
@@ -15,7 +15,7 @@ APP_TOKEN = 'S9xZv2avu4REIdEZhsDGgglvS';
 var FOOD_TRUCK_HOST = 'data.sfgov.org';
 var FOOD_TRUCK_PATH = '/resource/jjew-r69b.json';
 
-var numRecords = 50000;
+var numRecords = 500;
 var queryString1 = '?$limit=' + numRecords + '&$order=:id';
 var queryString2 = '?$limit=' + numRecords + '&$order=:id&$offset='
     + numRecords;
@@ -43,14 +43,14 @@ var secondEndpointOptions = {
 async.parallel([
     function(callback) {
         http.get(firstEndpointOptions, function(res) {
-            collectData(res, callback);
+            serverHelpers.collectData(res, callback);
         })
     },
     function(callback) {
         var body = '';
 
         http.get(secondEndpointOptions, function(res) {
-            collectData(res, callback);
+            serverHelpers.collectData(res, callback);
         })
     }
 ], function(err, results) {
@@ -69,44 +69,9 @@ async.parallel([
 
     allFoodTrucks = firstFoodTrucks.concat(secondFoodTrucks);
 
-    foodTruckDocs = convertDataToDocs(allFoodTrucks);
+    foodTruckDocs = serverHelpers.convertDataToDocs(allFoodTrucks);
 
-    foodTruckHelpers.updateDatabase(foodTruckDocs);
+    console.log(foodTruckDocs.length);
+
+//    foodTruckHelpers.updateDatabase(foodTruckDocs);
 });
-
-// for use in async.parallel()
-function collectData(res, callback) {
-    var body = '';
-
-    res.on('data', function(chunk) {
-        body += chunk;
-    });
-
-    res.on('error', function(err) {
-        console.error('error', err)
-    });
-
-    res.on('end', function() {
-        callback(null, body)
-    });
-}
-
-// Given an array of objects, maps the objects to the foodTruckSchema in
-// src/models/foodtruck.js
-function convertDataToDocs(foodTrucksData) {
-    return _.map(foodTrucksData, function(foodTruck) {
-        var latitude = parseFloat(foodTruck.latitude);
-        var longitude = parseFloat(foodTruck.longitude);
-
-        if (isNaN(latitude) || isNaN(longitude)) {
-            latitude = longitude = 0;
-        }
-
-        return {
-            address: foodTruck.address,
-            coordinates: [longitude, latitude],
-            fooditems: foodTruck.fooditems,
-            name: foodTruck.applicant
-        };
-    });
-}
