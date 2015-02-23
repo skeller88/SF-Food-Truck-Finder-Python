@@ -35,7 +35,7 @@ var foodTrucks = [
 
 db.once('open', function() {
     createFoodTrucks(foodTrucks)
-    .then(findNearbyFoodTrucks)
+    .then(findClosestFoodTrucks)
     .then(cleanup);
 });
 
@@ -49,7 +49,7 @@ function createFoodTrucks(foodTrucks) {
     });
 }
 
-function findNearbyFoodTrucks() {
+function findClosestFoodTrucks() {
     var point = {
         coordinates: [-121.2416406, 37.7813239],
         type: 'Point'

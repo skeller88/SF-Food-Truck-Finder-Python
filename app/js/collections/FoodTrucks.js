@@ -7,7 +7,7 @@ var FoodTruck = require('../models/FoodTruck');
 var geolocation = require('../util/geolocation');
 
 // in meters
-var FOOD_TRUCK_RESOURCE = 'http://localhost:3000/foodtrucks';
+var FOOD_TRUCK_RESOURCE = 'http://localhost:3000/foodtrucks/closest';
 
 module.exports = Backbone.Collection.extend({
     getNearbyFoodTrucks: function() {

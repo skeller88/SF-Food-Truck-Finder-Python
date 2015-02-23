@@ -4,6 +4,9 @@ var express = require('express');
 var http = require('http');
 var serveStatic = require('serve-static');
 
+var foodTruckHelpers = require('./src/util/foodTruckHelpers');
+var routes = require('./src/routes/routes');
+
 var app = express();
 
 app.set('port', process.env.PORT || 3000);
@@ -18,15 +21,12 @@ app.get('/', function(req, res, next) {
 });
 
 // expects a longitude and latitude query string
-app.get('/foodtrucks', function(req, res, next) {
-   console.log('foodtrucks');
-   console.log(req.query.longitude, req.query.latitude);
-    res.send(200, [1,2,3]);
-});
+app.get('/foodtrucks/closest', routes.findClosestFoodTrucks);
 
-
-http.createServer(app).listen(app.get('port'), function() {
-    console.info('Server now listening on port', app.get('port'));
+foodTruckHelpers.connectToDatabase(function() {
+    http.createServer(app).listen(app.get('port'), function() {
+        console.info('Server now listening on port', app.get('port'));
+    });
 });
 
 exports.app = app;

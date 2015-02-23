@@ -33,11 +33,29 @@ exports.updateDatabase = function(foodTrucks) {
     });
 
     db.on('error', console.error.bind(console, 'connection error:'));
-}
+};
 
-exports.findNearbyFoodTrucks = function() {
+exports.connectToDatabase = function(callback) {
+    mongoose.connect(CONNECTION_STRING);
+
+    var db = mongoose.connection;
+
+    // If the Node process ends, close the Mongoose connection
+    process.on('SIGINT', function() {
+        mongoose.connection.close(function () {
+            console.log('Mongoose default connection disconnected through app termination');
+            process.exit(0);
+        });
+    });
+
+    db.on('error', console.error.bind(console, 'connection error:'));
+
+    db.once('open', callback);
+};
+
+exports.findClosestFoodTrucks = function(coordinates) {
     var point = {
-        coordinates: [-121.2416406, 37.7813239],
+        coordinates: coordinates,
         type: 'Point'
     };
 
@@ -53,6 +71,6 @@ exports.findNearbyFoodTrucks = function() {
         if (err) {
             console.log(err);
         }
-        console.log('\n', '---------Nearby Food Trucks---------', '\n', result);
+        return result;
     });
 };
