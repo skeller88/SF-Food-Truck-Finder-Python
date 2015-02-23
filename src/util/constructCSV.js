@@ -14,9 +14,12 @@ var CONNECTION_STRING = require('./dbHelpers').CONNECTION_STRING;
 // determine if necessary to encrypt or if cleartext ok.
 APP_TOKEN = 'S9xZv2avu4REIdEZhsDGgglvS';
 var FOOD_TRUCK_HOST = 'data.sfgov.org';
-var FOOD_TRUCK_PATH = '/resource/rqzj-sfat.json';
-var queryString1 = '?$limit=5000&$order=:id';
-var queryString2 = '?$limit=5000&$order=:id&$offset=5000';
+var FOOD_TRUCK_PATH = '/resource/jjew-r69b.json';
+
+var numRecords = 5;
+var queryString1 = '?$limit=' + numRecords + '&$order=:id';
+var queryString2 = '?$limit=' + numRecords + '&$order=:id&$offset='
+    + numRecords;
 
 var firstEndpointOptions = {
     headers: {
@@ -34,45 +37,21 @@ var secondEndpointOptions = {
     path: FOOD_TRUCK_PATH + queryString2
 };
 
-// Two buffers are enough to get all of the food truck data (~55k records) given
-// that only 50k records can be returned per API call.
-// TODO(shane): create buffers programmatically so that this logic scales
+// Two requests are enough to get all of the food truck data (~55k records)
+// given that only 50k records can be returned per API call.
+// TODO(shane): create requests programmatically so that this logic scales
 // if the dataset grows > 100K.
-
-
 async.parallel([
     function(callback) {
-        var body = '';
-
         http.get(firstEndpointOptions, function(res) {
-            res.on('data', function(chunk) {
-                body += chunk;
-            });
-
-            res.on('error', function(err) {
-                console.error('error', err)
-            });
-
-            res.on('end', function() {
-                callback(null, body)
-            });
+            collectData(res, callback);
         })
     },
     function(callback) {
         var body = '';
 
         http.get(secondEndpointOptions, function(res) {
-            res.on('data', function(chunk) {
-                body += chunk;
-            });
-
-            res.on('error', function(err) {
-                console.error('error', err)
-            });
-
-            res.on('end', function() {
-                callback(null, body)
-            });
+            collectData(res, callback);
         })
     }
 ], function(err, results) {
@@ -81,8 +60,25 @@ async.parallel([
     var secondFoodTrucks = JSON.parse(results[1]);
 
     allFoodTrucks = firstFoodTrucks.concat(secondFoodTrucks);
-    console.log(firstFoodTrucks.length, secondFoodTrucks.length, allFoodTrucks.length)
+    console.log(allFoodTrucks.length)
 });
+
+// for use in async.parallel()
+function collectData(res, callback) {
+    var body = '';
+
+    res.on('data', function(chunk) {
+        body += chunk;
+    });
+
+    res.on('error', function(err) {
+        console.error('error', err)
+    });
+
+    res.on('end', function() {
+        callback(null, body)
+    });
+}
 
 function addToDatabase(res) {
 
