@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+var mongoomise = require('mongoomise');
 
 var CONNECTION_STRING = 'mongodb://127.0.0.1:27017/foodtrucks';
 
@@ -16,6 +17,7 @@ exports.connect = function() {
     });
 
     var db = mongoose.connection;
+    mongoomise.promisifyAll(db, require('./../util/promise'));
 
     // If the Node process ends, close the Mongoose connection
     process.on('SIGINT', function() {
