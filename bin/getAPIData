@@ -1,13 +1,15 @@
+#!/usr/bin/env node
+
 var async = require('async');
 var http = require('http');
 var MongoClient = require('mongodb').MongoClient;
 var mongoose = require('mongoose');
-var parse = require('csv-parse');
 
-var FoodTruck = require('../models/foodTruck').FoodTruck;
-var promise = require('../util/promise');
-var serverHelpers = require('../util/serverHelpers');
-var updateFoodTrucks = require('../models/foodTruck').updateFoodTrucks;
+var db = require('../src/config/db');
+var FoodTruck = require('../src/models/foodTruck').FoodTruck;
+var promise = require('../src/util/promise');
+var serverHelpers = require('../src/util/serverHelpers');
+var updateFoodTrucks = require('../src/models/foodTruck').updateFoodTrucks;
 
 // TODO(shane): change token to food truck finder token, and don't use
 // cleartext.
@@ -19,7 +21,7 @@ var FOOD_TRUCK_HOST = 'data.sfgov.org';
 var FOOD_TRUCK_PATH = '/resource/rqzj-sfat.json';
 
 // DataSF limit on number of records per request
-var numRecords = 500000;
+var numRecords = 49999;
 var queryString1 = '?$limit=' + numRecords + '&$order=:id';
 var queryString2 = '?$limit=' + numRecords + '&$order=:id&$offset=' +
 numRecords;
@@ -39,6 +41,8 @@ var secondEndpointOptions = {
     host: FOOD_TRUCK_HOST,
     path: FOOD_TRUCK_PATH + queryString2
 };
+
+db.connect();
 
 // TODO(shane): right now this logic isn't necessary because I'm not using
 // the larger database at '/resource/jjew-r69b.json'. Keep it anyways because
@@ -71,6 +75,11 @@ async.parallel([
 //            res.send('error parsing JSON: ' + err.message);
 //        }
 
+    if (err) {
+        console.error(err);
+        return;
+    }
+
     var firstFoodTrucks = JSON.parse(results[0]);
     var secondFoodTrucks = JSON.parse(results[1]);
 
@@ -78,7 +87,10 @@ async.parallel([
 
     foodTruckDocs = serverHelpers.convertDataToDocs(allFoodTrucks);
 
-    console.log(foodTruckDocs.length);
+    console.log('Downloaded ' + foodTruckDocs.length +
+        ' food trucks from DataSF.');
 
-    updateFoodTrucks(foodTruckDocs);
+    updateFoodTrucks(foodTruckDocs).then(function() {
+        db.disconnect();
+    });
 });

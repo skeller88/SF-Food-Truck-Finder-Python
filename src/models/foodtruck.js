@@ -11,6 +11,8 @@ var foodTruckSchema = mongoose.Schema({
     name: String
 });
 
+exports.FoodTruck = mongoose.model('FoodTruck', foodTruckSchema);
+
 exports.findClosestFoodTrucks = function(coordinates) {
     var point = {
         coordinates: coordinates,
@@ -39,16 +41,17 @@ exports.findClosestFoodTrucks = function(coordinates) {
  * transformed, ready to be inserted into the database.
  */
 exports.updateFoodTrucks = function(foodTrucks) {
-    FoodTruck.remove(function(err, removedCount) {
+    return exports.FoodTruck.remove(function(err, removedCount) {
         console.log('Removed ', removedCount, ' food truck models.');
 
-        FoodTruck.collection.insert(foodTrucks, function(err, docs) {
+        exports.FoodTruck.collection.insert(foodTrucks, function(err, docs) {
             if (err) {
                 console.error(err);
+                throw Error(err);
             }
             console.log('Added', docs.length, 'food trucks.');
+            return;
         });
     });
 };
 
-exports.FoodTruck = mongoose.model('FoodTruck', foodTruckSchema);

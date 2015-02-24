@@ -27,3 +27,14 @@ exports.connect = function() {
 
     db.on('error', console.error.bind(console, 'connection error:'));
 };
+
+exports.disconnect = function() {
+    mongoose.disconnect(function(err, res) {
+        if (err) {
+            console.error('ERROR disconnecting from: ' + connectionString +
+                '. ' + err);
+        } else {
+            console.log('Successfully disconnected from: ' + connectionString);
+        }
+    });
+};
