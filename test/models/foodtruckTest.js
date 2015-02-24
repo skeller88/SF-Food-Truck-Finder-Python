@@ -4,7 +4,7 @@
 var MongoClient = require('mongodb').MongoClient;
 var mongoose = require('mongoose');
 
-var FoodTruck = require('../../src/models/foodtruck');
+var FoodTruck = require('../../src/models/foodTruck');
 var CONNECTION_STRING = require('../../src/util/dbHelpers').CONNECTION_STRING;
 
 mongoose.connect(CONNECTION_STRING);

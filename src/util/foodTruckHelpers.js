@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 
-var CONNECTION_STRING = require('../config/databaseConfig').CONNECTION_STRING;
-var FoodTruck = require('../models/foodtruck');
+var CONNECTION_STRING = require('../config/db').CONNECTION_STRING;
+var FoodTruck = require('../models/foodTruck');
 
 exports.updateDatabase = function(foodTrucks) {
     mongoose.connect(CONNECTION_STRING);

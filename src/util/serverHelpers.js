@@ -18,7 +18,7 @@ exports.collectData = function(res, callback) {
 };
 
 // Given an array of objects, maps the objects to the foodTruckSchema in
-// src/models/foodtruck.js
+// src/models/foodTruck.js
 exports.convertDataToDocs = function(foodTrucksData) {
     return _.map(foodTrucksData, function(foodTruck) {
         var latitude = parseFloat(foodTruck.latitude);

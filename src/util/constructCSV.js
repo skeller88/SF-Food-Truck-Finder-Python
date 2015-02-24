@@ -4,7 +4,7 @@ var MongoClient = require('mongodb').MongoClient;
 var mongoose = require('mongoose');
 var parse = require('csv-parse');
 
-var FoodTruck = require('../models/foodtruck');
+var FoodTruck = require('../models/foodTruck');
 var foodTruckHelpers = require('./foodTruckHelpers');
 var promise = require('./promise');
 var serverHelpers = require('./serverHelpers');
