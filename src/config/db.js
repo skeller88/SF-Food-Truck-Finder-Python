@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 
-var CONNECTION_STRING = 'mongodb://127.0.0.1:27017/foodtruckstest';
+var CONNECTION_STRING = 'mongodb://127.0.0.1:27017/foodtrucks';
 
 if (process.env.NODE_ENV === 'production') {
     var connectionString = '';

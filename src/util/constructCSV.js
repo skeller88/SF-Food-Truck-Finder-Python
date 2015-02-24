@@ -4,13 +4,13 @@ var MongoClient = require('mongodb').MongoClient;
 var mongoose = require('mongoose');
 var parse = require('csv-parse');
 
-var FoodTruck = require('../models/foodTruck');
-var foodTruckHelpers = require('./foodTruckHelpers');
+var FoodTruck = require('../models/foodTruck').FoodTruck;
 var promise = require('./promise');
 var serverHelpers = require('./serverHelpers');
+var updateFoodTrucks = require('../models/foodTruck').updateFoodTrucks;
 
-// TODO(shane): change token to food truck finder token.
-// determine if necessary to encrypt or if cleartext ok.
+// TODO(shane): change token to food truck finder token, and don't use
+// cleartext.
 APP_TOKEN = 'S9xZv2avu4REIdEZhsDGgglvS';
 var FOOD_TRUCK_HOST = 'data.sfgov.org';
 // TODO(shane): refactor to use the larger and more comprehensive data set
@@ -18,10 +18,11 @@ var FOOD_TRUCK_HOST = 'data.sfgov.org';
 // var FOOD_TRUCK_PATH = '/resource/jjew-r69b.json';
 var FOOD_TRUCK_PATH = '/resource/rqzj-sfat.json';
 
-var numRecords = 500;
+// DataSF limit on number of records per request
+var numRecords = 500000;
 var queryString1 = '?$limit=' + numRecords + '&$order=:id';
-var queryString2 = '?$limit=' + numRecords + '&$order=:id&$offset='
-    + numRecords;
+var queryString2 = '?$limit=' + numRecords + '&$order=:id&$offset=' +
+numRecords;
 
 var firstEndpointOptions = {
     headers: {
@@ -39,6 +40,9 @@ var secondEndpointOptions = {
     path: FOOD_TRUCK_PATH + queryString2
 };
 
+// TODO(shane): right now this logic isn't necessary because I'm not using
+// the larger database at '/resource/jjew-r69b.json'. Keep it anyways because
+// I plan to switch databases soon.
 // Two requests are enough to get all of the food truck data (~55k records)
 // given that only 50k records can be returned per API call.
 // TODO(shane): create requests programmatically so that this logic scales
@@ -47,14 +51,14 @@ async.parallel([
     function(callback) {
         http.get(firstEndpointOptions, function(res) {
             serverHelpers.collectData(res, callback);
-        })
+        });
     },
     function(callback) {
         var body = '';
 
         http.get(secondEndpointOptions, function(res) {
             serverHelpers.collectData(res, callback);
-        })
+        });
     }
 ], function(err, results) {
     // TODO(shane): figure out why JSON.parse(results) throws an error. Then
@@ -76,5 +80,5 @@ async.parallel([
 
     console.log(foodTruckDocs.length);
 
-    foodTruckHelpers.updateDatabase(foodTruckDocs);
+    updateFoodTrucks(foodTruckDocs);
 });

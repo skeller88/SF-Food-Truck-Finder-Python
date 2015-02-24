@@ -1,4 +1,5 @@
-var foodTruckHelpers = require('../util/foodTruckHelpers');
+var findClosestFoodTrucks = require('./../models/foodTruck')
+.findClosestFoodTrucks;
 
 // expects a longitude and latitude query string
 exports.findClosest = function(req, res, next) {
@@ -6,8 +7,9 @@ exports.findClosest = function(req, res, next) {
     var latitude = parseFloat(req.query.latitude);
     var coordinates = [longitude, latitude];
 
-    foodTruckHelpers.findClosestFoodTrucks(coordinates)
+    findClosestFoodTrucks(coordinates)
     .then(function(result) {
+        console.log(result);
         res.status(200).send(result);
     });
 };

@@ -3,7 +3,7 @@ _ = require('underscore');
 Backbone = require('backbone');
 Backbone.$ = $;
 
-var FoodTruck = require('../models/FoodTruck');
+var FoodTruck = require('../models/FoodTruck').FoodTruck;
 var geolocation = require('../util/geolocation');
 
 // in meters
