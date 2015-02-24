@@ -2,7 +2,6 @@ var console = require('console');
 var express = require('express');
 var http = require('http');
 
-var foodTruckHelpers = require('./util/foodTruckHelpers');
 var foodTrucks = require('./routes/foodTrucks');
 
 var app = express();
