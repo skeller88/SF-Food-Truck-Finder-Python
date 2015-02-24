@@ -5,8 +5,8 @@ var mongoose = require('mongoose');
 var parse = require('csv-parse');
 
 var FoodTruck = require('../models/foodTruck').FoodTruck;
-var promise = require('./promise');
-var serverHelpers = require('./serverHelpers');
+var promise = require('../util/promise');
+var serverHelpers = require('../util/serverHelpers');
 var updateFoodTrucks = require('../models/foodTruck').updateFoodTrucks;
 
 // TODO(shane): change token to food truck finder token, and don't use
