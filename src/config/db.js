@@ -2,14 +2,18 @@ var mongoose = require('mongoose');
 
 var CONNECTION_STRING = 'mongodb://127.0.0.1:27017/foodtrucks';
 
-if (process.env.NODE_ENV === 'production') {
-    var connectionString = '';
-} else {
-    var connectionString = CONNECTION_STRING;
-}
+var connectionString = process.env.MONGOLAB_URI || process.env.MONGOHQ_URI ||
+CONNECTION_STRING;
 
 exports.connect = function() {
-    mongoose.connect(CONNECTION_STRING);
+    mongoose.connect(connectionString, function(err, res) {
+        if (err) {
+            console.error('ERROR connecting to: ' + connectionString + '. ' +
+                err);
+        } else {
+            console.log('Successfully connected to: ' + connectionString);
+        }
+    });
 
     var db = mongoose.connection;
 
