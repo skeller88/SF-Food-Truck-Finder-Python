@@ -1,7 +1,3 @@
-// works locally
-//#!/usr/bin/env node
-
-// TODO(shane): get this script to work when run by heroku
 #!/app/.heroku/node/bin/node
 
 var async = require('async');
