@@ -1,10 +1,11 @@
 var mongoose = require('mongoose');
 var mongoomise = require('mongoomise');
 
-var CONNECTION_STRING = 'mongodb://127.0.0.1:27017/foodtrucks';
+var DATABASE = 'foodtrucks';
 
-var connectionString = process.env.MONGOLAB_URI || process.env.MONGOHQ_URI ||
-CONNECTION_STRING;
+var connectionString = process.env.MONGOHQ_URL || 'mongodb://127.0.0.1:27017';
+
+connectionString = connectionString + '/' + DATABASE;
 
 exports.connect = function() {
     mongoose.connect(connectionString, function(err, res) {
