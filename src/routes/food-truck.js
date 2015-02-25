@@ -1,4 +1,4 @@
-var findClosestFoodTrucks = require('./../models/foodTruck')
+var findClosestFoodTrucks = require('./../models/food-truck')
 .findClosestFoodTrucks;
 
 // expects a longitude and latitude query string

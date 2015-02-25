@@ -4,13 +4,10 @@
 var MongoClient = require('mongodb').MongoClient;
 var mongoose = require('mongoose');
 
-var FoodTruck = require('../../src/models/foodTruck').FoodTruck;
-var CONNECTION_STRING = require('../../src/util/dbHelpers').CONNECTION_STRING;
+var FoodTruck = require('../../src/models/food-truck').FoodTruck;
+var dbHelpers = require('../../src/config/db');
 
-mongoose.connect(CONNECTION_STRING);
-
-var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
+dbHelpers.connect();
 
 var foodTrucks = [
     {

@@ -2,7 +2,7 @@ var console = require('console');
 var express = require('express');
 var http = require('http');
 
-var foodTrucks = require('./routes/foodTrucks');
+var foodTrucks = require('./routes/food-truck');
 
 var app = express();
 

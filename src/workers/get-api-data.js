@@ -4,10 +4,10 @@ var MongoClient = require('mongodb').MongoClient;
 var mongoose = require('mongoose');
 
 var db = require('./../config/db');
-var FoodTruck = require('./../models/foodTruck').FoodTruck;
+var FoodTruck = require('./../models/food-truck').FoodTruck;
 var promise = require('./../util/promise');
-var serverHelpers = require('./../util/serverHelpers');
-var updateFoodTrucks = require('./../models/foodTruck').updateFoodTrucks;
+var serverHelpers = require('./../util/server-helpers');
+var updateFoodTrucks = require('./../models/food-truck').updateFoodTrucks;
 
 // TODO(shane): change token to food truck finder token, and don't use
 // cleartext.
