@@ -1,19 +1,13 @@
-// works locally
-//#!/usr/bin/env node
-
-// TODO(shane): get this script to work when run by heroku
-#!/app/.heroku/node/bin/node
-
 var async = require('async');
 var http = require('http');
 var MongoClient = require('mongodb').MongoClient;
 var mongoose = require('mongoose');
 
-var db = require('../src/config/db');
-var FoodTruck = require('../src/models/foodTruck').FoodTruck;
-var promise = require('../src/util/promise');
-var serverHelpers = require('../src/util/serverHelpers');
-var updateFoodTrucks = require('../src/models/foodTruck').updateFoodTrucks;
+var db = require('./../config/db');
+var FoodTruck = require('./../models/foodTruck').FoodTruck;
+var promise = require('./../util/promise');
+var serverHelpers = require('./../util/serverHelpers');
+var updateFoodTrucks = require('./../models/foodTruck').updateFoodTrucks;
 
 // TODO(shane): change token to food truck finder token, and don't use
 // cleartext.
