@@ -4,6 +4,8 @@ var FoodTrucks = db.collection('foodtrucks');
 
 // expects a longitude and latitude query string
 exports.find = function(req, res, next) {
+    var limit = req.query.limit || 10;
+    var maxDistance = req.query.within || 100000;
     var longitude = parseFloat(req.query.longitude);
     var latitude = parseFloat(req.query.latitude);
     var coordinates = [longitude, latitude];
@@ -15,18 +17,19 @@ exports.find = function(req, res, next) {
             {
                 '$geoNear': {
                     distanceField: 'distance',
-                    // radius of Earth to convert radians --> miles
-                    distanceMultiplier: 1/3963.192,
-                    maxDistance: 10000000,
+                    // Because of 'spherical: true', the distance is returned
+                    // in meters. Convert meters to miles.
+                    distanceMultiplier: 1/1609.34,
+                    maxDistance: maxDistance,
                     near: {
                         type: 'Point',
-                        coordinates: [-122.397585967453, 37.7921033879545]
+                        coordinates: [longitude, latitude]
                     },
                     spherical: true
                 }
             },
             {
-                $limit: 10
+                $limit: limit
             }
         ]);
     }).then(function(results) {
