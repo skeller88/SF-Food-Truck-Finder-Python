@@ -1,5 +1,3 @@
-FoodTrucks = require('../collections/FoodTrucks');
-
 function defaultError(error) {
     switch(error.code) {
         case error.PERMISSION_DENIED:
@@ -23,10 +21,10 @@ function defaultSuccess(position) {
     latitude = position.coords.latitude;
     longitude = position.coords.longitude;
 
-    console.log(latitude, longitude);
+    console.log('Latitude:', latitude, 'Longitude:', longitude);
 }
 
-module.exports = function(success, error) {
+function geolocation(success, error) {
     if (navigator.geolocation) {
         var error = error || defaultError;
         var success = success || defaultSuccess;
@@ -37,4 +35,4 @@ module.exports = function(success, error) {
         console.log('Geolocation is not supported by this browser. You need' +
             ' a different browser to use this app.');
     }
-};
+}

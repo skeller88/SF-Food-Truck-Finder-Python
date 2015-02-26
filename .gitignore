@@ -2,7 +2,7 @@
 
 # Distribution / packaging
 .Python
-app/index.js
+app/css
 dist/
 env/
 node_modules/
