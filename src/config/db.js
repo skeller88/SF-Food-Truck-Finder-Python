@@ -1,11 +1,16 @@
-var mongoose = require('mongoose');
-var mongoomise = require('mongoomise');
+var MongoClient = require('mongodb').MongoClient;
 
-var DATABASE = 'foodtrucks';
+var collections = ['foodtrucks'];
+var database = 'foodtrucks';
 
 var connectionString = process.env.MONGOHQ_URL || 'mongodb://127.0.0.1:27017';
+connectionString = connectionString + '/' + database;
 
-connectionString = connectionString + '/' + DATABASE;
+MongoClient.connect(connectionString, function(err, db) {
+
+});
+
+exports.db = pmongo(connectionString, collections);
 
 exports.connect = function() {
     mongoose.connect(connectionString, function(err, res) {
