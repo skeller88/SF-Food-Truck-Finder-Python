@@ -13,8 +13,10 @@ var FOOD_TRUCK_HOST = 'data.sfgov.org';
 // var FOOD_TRUCK_PATH = '/resource/jjew-r69b.json';
 var FOOD_TRUCK_PATH = '/resource/rqzj-sfat.json';
 
-// DataSF limit on number of records per request
-var numRecords = 49999;
+// DataSF limit on number of records per request is 50000. Having two requests
+// makes the API future proof for this particular resource. Currently the
+// resource only has ~670 records.
+var numRecords = 50000;
 var queryString1 = '?$limit=' + numRecords + '&$order=:id';
 var queryString2 = '?$limit=' + numRecords + '&$order=:id&$offset=' +
 numRecords;
@@ -38,8 +40,6 @@ var secondEndpointOptions = {
 // TODO(shane): right now this logic isn't necessary because I'm not using
 // the larger database at '/resource/jjew-r69b.json'. Keep it anyways because
 // I plan to switch databases soon.
-// Two requests are enough to get all of the food truck data (~55k records)
-// given that only 50k records can be returned per API call.
 // TODO(shane): create requests programmatically so that this logic scales
 // if the dataset grows > 100K.
 async.parallel([

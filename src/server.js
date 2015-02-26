@@ -11,7 +11,7 @@ var db = require('./config/db');
 require('./config/express')(app);
 
 // Routes
-app.get('/foodtrucks/closest', foodTrucks.findClosest);
+app.get('/foodtrucks', foodTrucks.find);
 
 http.createServer(app).listen(app.get('port'), function() {
     console.info('Server now listening on port', app.get('port'));

@@ -3,7 +3,7 @@ var db = require('./../config/db');
 var FoodTrucks = db.collection('foodtrucks');
 
 // expects a longitude and latitude query string
-exports.findClosest = function(req, res, next) {
+exports.find = function(req, res, next) {
     var longitude = parseFloat(req.query.longitude);
     var latitude = parseFloat(req.query.latitude);
     var coordinates = [longitude, latitude];
