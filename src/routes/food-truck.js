@@ -29,6 +29,17 @@ exports.find = function(req, res, next) {
                 }
             },
             {
+                $limit: limit
+            },
+            // $sort must be before $project to take advantage of indexes:
+            // docs.mongodb.org/manual/reference/operator/aggregation/sort/
+            {
+                $sort: {
+                    distance: 1,
+                    name: 1
+                }
+            },
+            {
                 $project: {
                     _id: 0,
                     address: 1,
@@ -38,9 +49,7 @@ exports.find = function(req, res, next) {
                     name: 1
                 }
             },
-            {
-                $limit: limit
-            }
+
         ]);
     }).then(function(results) {
         console.log(results);
