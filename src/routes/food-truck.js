@@ -29,6 +29,16 @@ exports.find = function(req, res, next) {
                 }
             },
             {
+                $project: {
+                    _id: 0,
+                    address: 1,
+                    distance: 1,
+                    fooditems: 1,
+                    location: 1,
+                    name: 1
+                }
+            },
+            {
                 $limit: limit
             }
         ]);
