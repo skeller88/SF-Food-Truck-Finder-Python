@@ -3,9 +3,36 @@
     <head>
         <meta charset='utf-8'>
         <title>SF Food Truck Finder</title>
+        <link href='http://fonts.googleapis.com/css?family=Roboto:500,300' rel='stylesheet' type='text/css'>
+        <link rel='stylesheet' href='css/normalize.css'>
         <link rel='stylesheet' href='css/main.css'>
     </head>
     <body>
+        <header>
+            <h1 class='sk-page-title'>Food Truck Finder API</h1>
+        </header>
+        <section>
+            <p>This API was built by <a href='shanemkeller.com'>skeller88</a> and uses the <a href='https://data.sfgov.org/Economy-and-Community/Mobile-Food-Facility-Permit/rqzj-sfat'>Mobile Food Facility Permit</a> dataset from <a href='https://data.sfgov.org/'>Data SF</a>.</p>
+
+            <p>It provides the ability to retrieve all of the food trucks that may be within a certain radius of a particular coordinate.</p>
+
+            <p>Open up devtools to see your current coordinates. You can use those coordinates to query the API, or choose your own!</p>
+        </section>
+        <hr>
+        <section>
+            <h2>Endpoints</h2>
+            <h4 class='sk-endpoint-title'>GET /foodtrucks</h4>
+            <p>http://sf-food-truck-finder.herokuapp.com/foodtrucks</p>
+            <b>Parameters</b>
+            <ul>
+                <li>Latitude</li>
+                <li>Longitude</li>
+                <li>Radius - Maximum distance from coordinate to search, in miles.</li>
+            </ul>
+            <p><b>Sample response:</b>
+
+            </p>
+        </section>
     </body>
     <script src='js/util/geolocation.js'></script>
     <script>
