@@ -7,7 +7,6 @@ var foodTrucks = require('./routes/food-truck');
 var app = express();
 
 var db = require('./config/db');
-db.connect();
 
 require('./config/express')(app);
 

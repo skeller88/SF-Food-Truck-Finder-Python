@@ -30,8 +30,11 @@ exports.convertDataToDocs = function(foodTrucksData) {
 
         return {
             address: foodTruck.address,
-            coordinates: [longitude, latitude],
             fooditems: foodTruck.fooditems,
+            location: {
+                type: 'Point',
+                coordinates: [longitude, latitude]
+            },
             name: foodTruck.applicant
         };
     });

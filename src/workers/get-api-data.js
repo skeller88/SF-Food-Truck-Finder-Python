@@ -1,13 +1,8 @@
 var async = require('async');
 var http = require('http');
-var MongoClient = require('mongodb').MongoClient;
-var mongoose = require('mongoose');
 
 var db = require('./../config/db');
-var FoodTruck = require('./../models/food-truck').FoodTruck;
-var promise = require('./../util/promise');
 var serverHelpers = require('./../util/server-helpers');
-var updateFoodTrucks = require('./../models/food-truck').updateFoodTrucks;
 
 // TODO(shane): change token to food truck finder token, and don't use
 // cleartext.
@@ -40,8 +35,6 @@ var secondEndpointOptions = {
     path: FOOD_TRUCK_PATH + queryString2
 };
 
-db.connect();
-
 // TODO(shane): right now this logic isn't necessary because I'm not using
 // the larger database at '/resource/jjew-r69b.json'. Keep it anyways because
 // I plan to switch databases soon.
@@ -63,16 +56,6 @@ async.parallel([
         });
     }
 ], function(err, results) {
-    // TODO(shane): figure out why JSON.parse(results) throws an error. Then
-    // get this try-catch to work.
-//        try {
-//            foodTrucks = JSON.parse(body);
-//            console.log('inside************************', body);
-//        } catch(err) {
-//            res.statusCode = 400;
-//            res.send('error parsing JSON: ' + err.message);
-//        }
-
     if (err) {
         console.error(err);
         return;
@@ -88,7 +71,15 @@ async.parallel([
     console.log('Downloaded ' + foodTruckDocs.length +
         ' food trucks from DataSF.');
 
-    updateFoodTrucks(foodTruckDocs).then(function() {
-        db.disconnect();
+    // TODO(shane): refactor database business logic into separate file.
+    var FoodTrucks = db.collection('foodtrucks');
+
+    FoodTrucks.remove().then(function(results) {
+        console.log('Removed', results.n, 'food trucks.');
+        return FoodTrucks.insert(foodTruckDocs);
+    }).then(function(results) {
+        console.log('Inserted', results.length ,'food trucks.');
+        db.close();
+        return;
     });
 });

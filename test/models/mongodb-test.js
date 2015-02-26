@@ -1,11 +1,5 @@
-var pmongo = require('promised-mongo');
-
-var collections = ['foodtrucks'];
-var databaseName = 'foodtrucks';
-var connectionString = process.env.MONGOHQ_URL || 'mongodb://127.0.0.1:27017';
-connectionString = connectionString + '/' + databaseName;
-
-var db = pmongo(connectionString, collections);
+var db = require('./../../src/config/db');
+var FoodTrucksMethods = require('./../../src/collections/food-trucks-methods');
 var FoodTrucks = db.collection('foodtrucks');
 
 var foodTrucks = [
@@ -38,33 +32,48 @@ var foodTrucks = [
     }
 ];
 
-FoodTrucks.drop().then(function(err, r) {
-    console.log('err', err, '\nr', r, '\n');
-    return FoodTrucks.insert(foodTrucks);
-}).then(function(err, r) {
-    console.log('err', err, '\nr', r, '\n');
-    return FoodTrucks.ensureIndex({ 'location': '2dsphere' });
-}).then(function(err, r) {
-    console.log('err', err, '\nr', r, '\n');
-    return FoodTrucks.aggregate([
-        {
-            '$geoNear': {
-                distanceField: 'distance',
-                // radius of Earth to convert radians --> miles
-                distanceMultiplier: 1/3963.192,
-                maxDistance: 10000000,
-                near: {
-                    type: 'Point',
-                    coordinates: [-122.397585967453, 37.7921033879545]
-                },
-                spherical: true
-            }
-        },
-        {
-            $limit: 10
-        }
-    ]);
-}).then(function(err, r) {
-    console.log('err', err, '\nr', r, '\n');
+FoodTrucksMethods.deleteFoodTrucks().then(function(results) {
+    console.log(results);
     db.close();
 });
+
+// FoodTrucksMethods.updateFoodTrucks(foodTrucks).then(function(results) {
+//     console.log(results);
+// });
+
+// FoodTrucksMethods.findClosestFoodTrucks([-122.397585967453, 37.7921033879545])
+// .then(function(err, result) {
+//     console.log(err, result);
+// });
+
+
+// FoodTrucks.drop().then(function(err, r) {
+//     console.log('err', err, '\nr', r, '\n');
+//     return FoodTrucks.insert(foodTrucks);
+// }).then(function(err, r) {
+//     console.log('err', err, '\nr', r, '\n');
+//     return FoodTrucks.ensureIndex({ 'location': '2dsphere' });
+// }).then(function(err, r) {
+//     console.log('err', err, '\nr', r, '\n');
+//     return FoodTrucks.aggregate([
+//         {
+//             '$geoNear': {
+//                 distanceField: 'distance',
+//                 // radius of Earth to convert radians --> miles
+//                 distanceMultiplier: 1/3963.192,
+//                 maxDistance: 10000000,
+//                 near: {
+//                     type: 'Point',
+//                     coordinates: [-122.397585967453, 37.7921033879545]
+//                 },
+//                 spherical: true
+//             }
+//         },
+//         {
+//             $limit: 10
+//         }
+//     ]);
+// }).then(function(err, r) {
+//     console.log('err', err, '\nr', r, '\n');
+//     db.close();
+// });
