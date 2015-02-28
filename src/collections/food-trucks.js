@@ -56,11 +56,29 @@ exports.findClosestFoodTrucks = function(options, callback) {
 
 /**
  * @param {foodTrucks} array of objects - food truck documents to insert
+ * Closes the database after completion, because it's invoked by a worker task.
+ * findClosestFoodTrucks() is invoked by an API request, so the server needs
+ * to stay connected to the database for other requests.
  */
 exports.updateFoodTrucks = function(foodTrucks) {
-    FoodTrucks.drop(function(err, results) {
-        FoodTrucks.insert(foodTrucks, function(err, results) {
+    FoodTrucks.drop(function(err, result) {
+        if (err) {
+            console.log(err);
+        }
 
+        if (result) {
+            console.log('Removed "foodtrucks" collection.');
+        } else {
+            console.log('"foodtrucks" collection does not exist.');
+        }
+
+        FoodTrucks.insert(foodTrucks, function(err, results) {
+            if (err) {
+                console.log(err);
+            }
+
+            console.log('Inserted', results.length ,'food trucks.');
+            db.close();
         });
     });
 };
