@@ -53,3 +53,14 @@ exports.findClosestFoodTrucks = function(options, callback) {
         ], callback);
     });
 };
+
+/**
+ * @param {foodTrucks} array of objects - food truck documents to insert
+ */
+exports.updateFoodTrucks = function(foodTrucks) {
+    FoodTrucks.drop(function(err, results) {
+        FoodTrucks.insert(foodTrucks, function(err, results) {
+
+        });
+    });
+};

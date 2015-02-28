@@ -33,7 +33,6 @@ exports.collectData = function(res, callback) {
 // Given an array of objects, maps the objects to the foodTruckSchema in
 // src/models/foodTruck.js
 exports.convertDataToDocs = function(foodTrucksData) {
-    console.log(foodTrucksData);
     return _.map(foodTrucksData, function(foodTruck) {
         var latitude = parseFloat(foodTruck.latitude);
         var longitude = parseFloat(foodTruck.longitude);
