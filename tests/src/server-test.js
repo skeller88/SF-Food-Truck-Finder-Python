@@ -33,7 +33,7 @@ var sjLatitude = 37.3382;
 var sjLongitude = 121.8863;
 
 describe('Server "/foodtrucks" route', function() {
-    it('should respond to valid requests', function(done) {
+    it('should return food trucks near a given location', function(done) {
         var limit = 10;
         var within = 10;
         var queryString = '?latitude=' + sfLatitude + '&longitude=' +
@@ -44,6 +44,34 @@ describe('Server "/foodtrucks" route', function() {
             .expect(200)
             .end(function(err, res) {
                 assert.equal(limit, res.body.length);
+                done();
+            });
+    });
+
+    it('should return no food trucks for certain coordinates', function(done) {
+        var limit = 10;
+        var within = 1;
+        var queryString = '?latitude=' + sjLatitude + '&longitude=' +
+        sjLongitude + '&limit=' + limit + '&within=' + within;
+
+        request(app)
+            .get('/foodtrucks' + queryString)
+            .expect(200)
+            .end(function(err, res) {
+                assert.equal(0, res.body.length);
+                done();
+            });
+    });
+
+    it('should provide default values for "limit" and "within"', function(done) {
+        var queryString = '?latitude=' + sfLatitude + '&longitude=' +
+        sfLongitude;
+
+        request(app)
+            .get('/foodtrucks' + queryString)
+            .expect(200)
+            .end(function(err, res) {
+                assert.isAbove(res.body.length, 0);
                 done();
             });
     });

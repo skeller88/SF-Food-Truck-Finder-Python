@@ -11,10 +11,10 @@ var metersInAMile = 1609.34;
  * @param {callback} function - send result of database query to server
  */
 exports.findClosestFoodTrucks = function(options, callback) {
-    var limit = options.limit || 10;
+    var limit = options.limit;
     // Must be converted to meters because property 'maxDistance' must be in
     // meters.
-    var within = options.within * metersInAMile || 1 * metersInAMile ;
+    var within = options.within * metersInAMile;
 
     FoodTrucks.ensureIndex({ 'location': '2dsphere' }, function(err, results) {
         FoodTrucks.aggregate([
