@@ -4,8 +4,8 @@ var FoodTrucks = require('./../collections/food-trucks');
 
 // expects a longitude and latitude query string
 exports.find = function(req, res, next) {
-    var limit = req.query.limit;
-    var within = req.query.within;
+    var limit = parseInt(req.query.limit);
+    var within = parseInt(req.query.within);
     var longitude = parseFloat(req.query.longitude);
     var latitude = parseFloat(req.query.latitude);
     var coordinates = [longitude, latitude];

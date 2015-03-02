@@ -1,6 +1,8 @@
 var db = require('./../config/db');
 var FoodTrucks = db.foodtrucks;
 
+var radiusOfEarthInMiles = 3959;
+var metersInAMile = 1609.34;
 /**
  * @param {options} object - contains the following keys:
  * 'coordinates' - latitude and longitude,
@@ -10,23 +12,26 @@ var FoodTrucks = db.foodtrucks;
  */
 exports.findClosestFoodTrucks = function(options, callback) {
     var limit = options.limit || 10;
-    var within = options.within || 100000;
+    // Must be converted to meters because property 'maxDistance' must be in
+    // meters.
+    var within = options.within * metersInAMile || 1 * metersInAMile ;
 
     FoodTrucks.ensureIndex({ 'location': '2dsphere' }, function(err, results) {
         FoodTrucks.aggregate([
             {
                 '$geoNear': {
                     distanceField: 'distance',
-                    // Because of 'spherical: true', the distance is returned
-                    // in meters. Convert meters to miles.
-                    distanceMultiplier: 1/1609.34,
+                    // This query must have the property 'spherical: true'.
+                    // Because of that, the distance is returned in meters and
+                    // needs to be converted to miles.
+                    distanceMultiplier: 1/metersInAMile,
                     maxDistance: within,
                     near: {
                         type: 'Point',
                         coordinates: options.coordinates
                     },
-                    spherical: true
-                }
+                    spherical: true,
+                },
             },
             {
                 $limit: limit

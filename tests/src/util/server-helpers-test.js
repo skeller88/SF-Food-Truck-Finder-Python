@@ -3,7 +3,6 @@ var assert = chai.assert;
 var request = require('supertest');
 
 var app = require('./../../../src/server');
-var dummyData = require('./../dummy-data');
 var serverHelpers = require('./../../../src/util/server-helpers');
 var testResponse = require('./../../../src/routes/server-test').testResponse;
 
@@ -96,7 +95,7 @@ describe('convertDataToDocs', function() {
 
     it('converts data', function() {
         var docs = serverHelpers.convertDataToDocs(foodTrucksData);
-        assert.deepEqual(docs, dummyData.foodTrucks,
+        assert.deepEqual(docs, foodTrucks,
             'Did not properly convert data.');
     });
 });
