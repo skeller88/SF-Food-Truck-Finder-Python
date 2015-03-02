@@ -19,12 +19,21 @@ module.exports = function(grunt) {
                 }
             }
         },
+        mochaTest: {
+          test: {
+            options: {
+              reporter: 'spec'
+            },
+            src: ['tests/src/**/*.js']
+          }
+        },
         watch: {
-            files: ['app/less/*.less'],
-            tasks: ['less']
+            files: ['app/less/*.less', 'src/**/*.js'],
+            tasks: ['less', 'mochaTest']
         }
     });
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-less');
+    grunt.loadNpmTasks('grunt-mocha-test');
     grunt.loadNpmTasks('grunt-contrib-watch');
 };

@@ -27,6 +27,7 @@
     "compression": "^1.4.1",
     "console": "^0.5.2",
     "express": "^4.11.2",
+    "grunt-mocha-test": "^0.12.7",
     "http": "0.0.0",
     "less": "^2.4.0",
     "mongodb": "^1.4.31",
