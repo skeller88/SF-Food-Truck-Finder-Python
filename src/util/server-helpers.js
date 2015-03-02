@@ -26,11 +26,7 @@ exports.collectData = function(res, callback) {
         body += chunk;
     });
 
-    res.on('error', function(err) {
-        console.error('error', err);
-    });
-
-    res.on('end', function() {
+    res.on('end', function(err) {
         callback(err, body);
     });
 };
