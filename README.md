@@ -23,6 +23,8 @@ All users in same time zone. So background jobs can be scheduled between 4am-6am
 # App architecture
 The project focuses on the back-end. Using Heroku scheduler and Node, a worker task downloads all of the data from the DataSF dataset and updates a MongoDB database also deployed on Heroku via the [Compose](https://www.compose.io/) addon.
 
+For an I/O heavy application running on a single server due to cost constraints, an asynchronous platform/framework was the logical choice. Node was chosen over another asynchronous solution like Tornado because 1) Node has a larger community than Tornado or Twisted (measured by posts on Stack Overflow), and 2) I already know Node and time for this project was limited, making it not feasible to learn a new asynchronous server platform/framework.
+
 I had never done a project involving spatial queries, so I looked into geo-based databases. Currently, the most popular two are MongoDB and PostGIS, a spatial database extender for PostgreSQL.
 
 There was no clear winner between the two. Here's what they are equal on:
