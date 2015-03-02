@@ -3,6 +3,7 @@
 var async = require('async');
 var http = require('http');
 
+var db = require('./../src/config/db');
 var FoodTrucks = require('./../src/collections/food-trucks');
 var serverHelpers = require('./../src/util/server-helpers');
 
