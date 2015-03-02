@@ -1,7 +1,7 @@
 var chai = require('chai');
 var assert = chai.assert;
 
-var db = require('./../../src/config/db');
+var db = require('./../../../src/config/db');
 
 describe('db', function() {
     it('Is a connection object', function() {

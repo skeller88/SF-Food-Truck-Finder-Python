@@ -13,7 +13,12 @@ exports.cacheControl = function(res, path) {
     console.timeEnd('cacheControl');
 };
 
-// for use in async.parallel()
+// Async.parallel() consists of an array of tasks. Each task is passed a
+// callback(err, result) which it must call on completion with an
+// error err (which can be null) and an optional result value. collectData()
+// is invoked by each task to collect the data from a particular request,
+// and so collectData() must accept the task callback at the end of data
+// collection.
 exports.collectData = function(res, callback) {
     var body = '';
 
@@ -26,7 +31,7 @@ exports.collectData = function(res, callback) {
     });
 
     res.on('end', function() {
-        callback(null, body);
+        callback(err, body);
     });
 };
 

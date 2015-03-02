@@ -1,7 +1,7 @@
 var chai = require('chai');
 var assert = chai.assert;
 
-var db = require('./../../src/config/db');
+var db = require('./../../../src/config/db');
 
 describe('FoodTrucks collection', function() {
     var FoodTrucks = null;
@@ -64,9 +64,8 @@ describe('FoodTrucks collection', function() {
     // work in this spec as well.
     it('removes food trucks', function(done) {
         FoodTrucks.insert(foodTrucks, function(err, results) {
-            FoodTrucks.drop(function(err, numRemoved) {
-                assert.equal(numRemoved, foodTrucks.length,
-                    'Incorrect number of food trucks removed.');
+            FoodTrucks.drop(function(err, result) {
+                assert.isTrue(result, 'Food trucks not removed.');
                 done();
             });
         });

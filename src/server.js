@@ -3,6 +3,7 @@ var express = require('express');
 var http = require('http');
 
 var foodTrucks = require('./routes/food-truck');
+var serverTest = require('./routes/server-test');
 
 var app = express();
 
@@ -12,6 +13,7 @@ require('./config/express')(app);
 
 // Routes
 app.get('/foodtrucks', foodTrucks.find);
+app.get('/test', serverTest.testRoute);
 
 http.createServer(app).listen(app.get('port'), function() {
     console.info('Server now listening on port', app.get('port'));
@@ -25,4 +27,4 @@ process.on('uncaughtException', function (err) {
   console.log('Caught exception: ' + err);
 });
 
-exports.app = app;
+module.exports = app;
