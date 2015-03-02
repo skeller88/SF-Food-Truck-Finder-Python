@@ -73,5 +73,7 @@ async.parallel([
     console.log('Downloaded ' + foodTruckDocs.length +
         ' food trucks from DataSF.');
 
-    FoodTrucks.updateFoodTrucks(foodTruckDocs);
+    FoodTrucks.updateFoodTrucks(foodTruckDocs, function(results) {
+        db.close();
+    });
 });

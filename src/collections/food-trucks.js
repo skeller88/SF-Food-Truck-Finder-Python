@@ -8,7 +8,8 @@ var metersInAMile = 1609.34;
  * 'coordinates' - latitude and longitude,
  * 'limit' - number of food trucks to return,
  * 'within' - radius to search within, in miles
- * @param {callback} function - send result of database query to server
+ * @param {callback} function - log results, send result of database query to
+ * server, or evaluate results against tests
  */
 exports.findClosestFoodTrucks = function(options, callback) {
     var limit = options.limit;
@@ -61,11 +62,13 @@ exports.findClosestFoodTrucks = function(options, callback) {
 
 /**
  * @param {foodTrucks} array of objects - food truck documents to insert
+ * @param {callback} function - optional callback for testing. Could also be
+ * used to log results or send results to server.
  * Closes the database after completion, because it's invoked by a worker task.
  * findClosestFoodTrucks() is invoked by an API request, so the server needs
  * to stay connected to the database for other requests.
  */
-exports.updateFoodTrucks = function(foodTrucks) {
+exports.updateFoodTrucks = function(foodTrucks, callback) {
     FoodTrucks.drop(function(err, result) {
         if (err) {
             console.log(err);
@@ -83,7 +86,10 @@ exports.updateFoodTrucks = function(foodTrucks) {
             }
 
             console.log('Inserted', results.length ,'food trucks.');
-            db.close();
+
+            if (callback) {
+                callback(results);
+            }
         });
     });
 };

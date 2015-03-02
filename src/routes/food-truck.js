@@ -16,7 +16,8 @@ exports.find = function(req, res, next) {
         within = req.query.within ? parseInt(req.query.within) : 2;
         longitude = req.query.longitude ? parseFloat(
             req.query.longitude) : undefined;
-        latitude = req.query.latitude ? parseFloat(req.query.latitude) : undefined;
+        latitude = req.query.latitude ? parseFloat(
+            req.query.latitude) : undefined;
 
     } catch(err) {
         res.status(404).send('Invalid parameters causing error: ' + JSON.stringify(err));
