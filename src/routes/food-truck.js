@@ -20,7 +20,18 @@ exports.find = function(req, res, next) {
             req.query.latitude) : undefined;
 
     } catch(err) {
-        res.status(404).send('Invalid parameters causing error: ' + JSON.stringify(err));
+        res.status(400);
+        next(err);
+    }
+
+    if (!(latitude && longitude)) {
+        res.status(400);
+        next(new Error('Both latitude and longitude must be defined.'));
+    }
+
+    if (limit <= 0 || within <= 0) {
+        res.status(400);
+        next(new Error('Limit and within must be >= 0.'));
     }
 
     var coordinates = [longitude, latitude];
@@ -33,9 +44,10 @@ exports.find = function(req, res, next) {
 
     function sendResponse(err, results) {
         if (err) {
-            res.status(500).send('Database query failed: ' + JSON.stringify(err));
+            next(err);
+        } else {
+            res.status(200).send(results);
         }
-        res.status(200).send(results);
     }
 
     FoodTrucks.findClosestFoodTrucks(options, sendResponse);

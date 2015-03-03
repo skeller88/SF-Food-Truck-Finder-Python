@@ -4,7 +4,6 @@ var request = require('supertest');
 
 var app = require('./../../../src/server');
 var serverHelpers = require('./../../../src/util/server-helpers');
-var testResponse = require('./../../../src/routes/server-test').testResponse;
 
 describe('middleware', function() {
     it('does not cache .html files', function(done) {

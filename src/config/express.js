@@ -12,6 +12,8 @@ module.exports = function(app) {
     app.use(bodyParser.urlencoded({
         extended: true
     }));
+    // app.use(serverHelpers.logErrors);
+    app.use(serverHelpers.handleErrors);
 
     if (process.env.NODE_ENV === 'production') {
         app.use(serveStatic(__dirname + '../../dist', {

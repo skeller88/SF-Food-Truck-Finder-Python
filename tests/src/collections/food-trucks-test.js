@@ -3,6 +3,9 @@ var assert = chai.assert;
 
 var db = require('./../../../src/config/db');
 var FoodTrucksMethods = require('./../../../src/collections/food-trucks');
+
+//TODO(shane): tests for findClosestFoodTrucks() and updateFoodTrucks()
+
 // TODO(shane): reusing foodTrucks in server-helpers-test.js. Refactor to
 // a dummy-data.js file to DRY up.
 var foodTrucks = [
