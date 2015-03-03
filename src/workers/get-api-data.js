@@ -44,7 +44,10 @@ var secondEndpointOptions = _.chain(endpointOptions).clone().extend({
 // I plan to switch databases soon.
 // TODO(shane): create requests programmatically so that this logic scales
 // if the dataset grows > 100K.
-module.exports = function(){
+// @params {endCallback} function - optional, expects 1) an Error object and
+// 2) an array of results consisting of the food trucks inserted into the
+// database
+module.exports = function(endCallback){
     async.parallel([
         function(callback) {
             http.get(firstEndpointOptions, function(res) {
@@ -76,6 +79,8 @@ module.exports = function(){
 
         FoodTrucks.updateFoodTrucks(foodTruckDocs, function(results) {
             db.close();
+            console.log(results);
+            endCallback(err, results);
         });
     });
 };

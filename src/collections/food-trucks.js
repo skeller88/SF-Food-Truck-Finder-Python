@@ -5,17 +5,18 @@ var radiusOfEarthInMiles = 3959;
 var metersInAMile = 1609.34;
 /**
  * @param {options} object - contains the following keys:
- * 'coordinates' - latitude and longitude,
+ * 'coordinates' - [longitude, latitude],
  * 'limit' - number of food trucks to return,
  * 'within' - radius to search within, in miles
  * @param {callback} function - expects an Error object as 1st parameter and
  * array as 2nd parameter.
  */
 exports.findClosestFoodTrucks = function(options, callback) {
-    var limit = options.limit;
+    var limit = options.limit || 10;
     // Must be converted to meters because property 'maxDistance' must be in
     // meters.
-    var within = options.within * metersInAMile;
+    var within = (options.within ? options.within * metersInAMile :
+        metersInAMile);
 
     FoodTrucks.ensureIndex({ 'location': '2dsphere' }, function(err, results) {
         FoodTrucks.aggregate([

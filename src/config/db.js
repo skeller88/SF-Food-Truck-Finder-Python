@@ -1,3 +1,6 @@
+// Use promised-mongo to make refactoring to promises seamless in the future,
+// and because promised-mongo makes connection pooling and sharing the 'db'
+// object across modules very easy and clean.
 var pmongo = require('promised-mongo');
 
 var collections = ['foodtrucks'];
