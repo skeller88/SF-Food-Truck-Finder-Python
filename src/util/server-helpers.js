@@ -1,10 +1,7 @@
 var _ = require('underscore');
 
 // Cache all static files except for .html files.
-
 var re = new RegExp("html$");
-
-// Utility functions
 exports.cacheControl = function(res, path) {
     console.time('cacheControl');
     if (!re.test(path)) {
@@ -31,8 +28,8 @@ exports.collectData = function(res, callback) {
     });
 };
 
-// Given an array of objects, maps the objects to the foodTruckSchema in
-// src/models/foodTruck.js
+// Given an array of objects, maps the objects to the foodtrucks collection
+// schema
 exports.convertDataToDocs = function(foodTrucksData) {
     return _.map(foodTrucksData, function(foodTruck) {
         var latitude = parseFloat(foodTruck.latitude);

@@ -3,7 +3,6 @@
 # Distribution / packaging
 .Python
 app/css
-src/workers/
 dist/
 env/
 node_modules/

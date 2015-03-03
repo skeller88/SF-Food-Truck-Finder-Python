@@ -1,5 +1,4 @@
 var db = require('./../config/db');
-
 var FoodTrucks = require('./../collections/food-trucks');
 
 // Expects a longitude and latitude query string, and handles the logic of
@@ -56,13 +55,11 @@ exports.find = function(req, res, next) {
         within: within
     };
 
-    function sendResponse(err, results) {
+    FoodTrucks.findClosestFoodTrucks(options, function (err, results) {
         if (err) {
             next(err);
         } else {
             res.status(200).send(results);
         }
-    }
-
-    FoodTrucks.findClosestFoodTrucks(options, sendResponse);
+    });
 };

@@ -2,12 +2,10 @@ var console = require('console');
 var express = require('express');
 var http = require('http');
 
+var db = require('./config/db');
 var foodTrucks = require('./routes/food-truck');
 
 var app = express();
-
-var db = require('./config/db');
-
 // pre-route middleware
 require('./config/express').pre(app);
 

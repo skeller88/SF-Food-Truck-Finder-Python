@@ -26,7 +26,6 @@ exports.pre = function(app) {
 };
 
 // Invoked after routes. As of now only error handlers.
-// TODO(shane): causes
 exports.post = function(app) {
     app.use(serverHelpers.logErrors);
     app.use(serverHelpers.handleErrors);

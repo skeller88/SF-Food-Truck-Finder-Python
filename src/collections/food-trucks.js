@@ -8,8 +8,8 @@ var metersInAMile = 1609.34;
  * 'coordinates' - latitude and longitude,
  * 'limit' - number of food trucks to return,
  * 'within' - radius to search within, in miles
- * @param {callback} function - log results, send result of database query to
- * server, or evaluate results against tests
+ * @param {callback} function - expects an Error object as 1st parameter and
+ * array as 2nd parameter.
  */
 exports.findClosestFoodTrucks = function(options, callback) {
     var limit = options.limit;
@@ -67,9 +67,17 @@ exports.findClosestFoodTrucks = function(options, callback) {
  * Closes the database after completion, because it's invoked by a worker task.
  * findClosestFoodTrucks() is invoked by an API request, so the server needs
  * to stay connected to the database for other requests.
+ *
+ * TODO(shane): It's possible that this worker task can cause
+ * findClosestFoodTrucks() to fail because the collection is dropped, or
+ * partially reloaded. Create an intermediate collection in the worker and
+ * promote that collection on a successful insert, then drop the original
+ * collection.
  */
 exports.updateFoodTrucks = function(foodTrucks, callback) {
     FoodTrucks.drop(function(err, result) {
+        // TODO(shane): possible to use error logging middleware in a worker
+        // task like in src/config/express.js?
         if (err) {
             console.log(err);
         }

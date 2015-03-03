@@ -9,19 +9,8 @@ It's hard to find food trucks nearby in San Francisco. Yelp does not have the da
 
 DataSF provides an API with access to food truck information, as well as other data sets. This project is an API specifically built for the food truck data set only.
 
-# Some thoughts on users
-240K people between 25-39 (30% of population via http://www.paragon-re.com/SF_Demographics/)
-
-Request patterns will be irregular - volume in descending order:
-- lunch (12-2pm)
-- dinner (5-7pm)
-- late night? (7-2am)
-- and higher on weekdays than weekends (work crowd vs foodies)?
-
-All users in same time zone. So background jobs can be scheduled between 4am-6am, when no users are using the app.
-
 # App architecture
-The project focuses on the back-end. Using Heroku scheduler and Node, a worker task downloads all of the data from the DataSF dataset and updates a MongoDB database also deployed on Heroku via the [Compose](https://www.compose.io/) addon.
+The project focuses on the back-end. Using Heroku scheduler and Node, a worker task downloads all of the data from the DataSF dataset and updates a MongoDB database also deployed on Heroku via the [Compose](https://www.compose.io/) addon. Request patterns are irregular and in the same time zone, so background jobs are  scheduled at 4am, when no users are using the app.
 
 For an I/O heavy application running on a single server due to cost constraints, an asynchronous platform/framework was the logical choice. Node was chosen over another asynchronous solution like Tornado because 1) Node has a larger community than Tornado or Twisted (measured by posts on Stack Overflow), and 2) I already know Node and time for this project was limited, making it not feasible to learn a new asynchronous server platform/framework.
 
@@ -42,9 +31,7 @@ So, MongoDB was chosen for several reasons:
 - I didn't have that much experience with MongoDB and wanted to get more experience with it :).
 
 # Development
-Run `npm install` for dependencies, `npm start` to start the express server, and `mongod` to start the mongodb server.
-
-To run the worker task, bin/getAPIData, in development, temporarily replace the hashbang at the top of the file with the path to your local node executable. Don't commit changes to the hashbang to your git history. This is not an ideal solution, but it works for now.
+Run `npm install` for dependencies, `npm start` to start the express server, `mongod` to start the mongodb server, and `node bin/getAPIData` to populate the local database.
 
 # Next steps for app
 Test coverage of bin/getAPIData.
