@@ -9,7 +9,7 @@ var getAPIData = require('./../../../src/workers/get-api-data');
 // TODO(shane): add to dummy data module to make more DRY
 var db, sfLatitude, sfLongitude, sjLatitude, sjLongitude, limit, within;
 beforeEach(function() {
-    // Open the database in case the database was closed by another test
+    // Open the database in case the database was closed by another test.
     // Coordinates of a random food truck in San Francisco; highly likely that
     // these coordinates are within 10 miles of all of the other food trucks.
     sfLatitude = 37.7111428086172;

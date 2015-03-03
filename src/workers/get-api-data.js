@@ -39,14 +39,16 @@ var secondEndpointOptions = _.chain(endpointOptions).clone().extend({
     path: FOOD_TRUCK_PATH + queryString2
 }).value();
 
-// TODO(shane): right now this logic isn't necessary because I'm not using
-// the larger database at '/resource/jjew-r69b.json'. Keep it anyways because
-// I plan to switch databases soon.
-// TODO(shane): create requests programmatically so that this logic scales
-// if the dataset grows > 100K.
-// @params {endCallback} function - optional, expects 1) an Error object and
-// 2) an array of results consisting of the food trucks inserted into the
-// database
+/** TODO(shane): right now this logic isn't necessary because I'm not using
+ * the larger database at '/resource/jjew-r69b.json'. Keep it anyways because
+ * I plan to switch databases soon.
+ * TODO(shane): create requests programmatically so that this logic scales
+ * if the dataset grows > 100K.
+
+ * @params {endCallback} function - optional, expects 1) an Error object and
+ * 2) an array of results consisting of the food trucks inserted into the
+ * database
+ */
 module.exports = function(endCallback){
     async.parallel([
         function(callback) {

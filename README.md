@@ -2,7 +2,7 @@
 
 An API service that, given a set of coordinates, returns food trucks likely to be nearby.
 
-[API link](http://sf-food-truck-finder.herokuapp.com/).
+[API link](http://sf-food-truck-finder.herokuapp.com).
 
 # Why SF Food Truck Finder?
 It's hard to find food trucks nearby in San Francisco. Yelp does not have the data, and scouring the twitter feeds of food trucks takes a lot of time and existing knowledge of the names of the food trucks.

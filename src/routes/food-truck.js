@@ -25,7 +25,8 @@ exports.find = function(req, res, next) {
         // TODO(shane): make translation of query string to integers
         // into middleware or an inner function in this route handler.
         // TODO(shane): changing the default values of "limit" and "within" may
-        // cause certain tests to fail. Make less brittle.
+        // cause certain tests to fail. Make less brittle by storing the
+        // default values in a config file.
         limit = req.query.limit ? parseInt(req.query.limit) : 10;
         within = req.query.within ? parseInt(req.query.within) : 2;
         longitude = req.query.longitude ? parseFloat(

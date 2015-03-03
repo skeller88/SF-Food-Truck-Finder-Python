@@ -16,16 +16,17 @@ var sjLongitude = 121.8863;
 var limit = 10;
 var within = 10;
 
-xdescribe('Server "/foodtrucks" route', function() {
+describe('Server "/foodtrucks" route', function() {
     it('should return food trucks near a given location', function(done) {
         var queryString = 'latitude=' + sfLatitude + '&longitude=' +
         sfLongitude + '&limit=' + limit + '&within=' + within;
 
         request(app)
-            .get('/foodtrucks' + queryString)
+            .get('/foodtrucks')
+            .query(queryString)
             .expect(200)
             .end(function(err, res) {
-                assert.equal(limit, res.body.length);
+                assert.isAbove(res.body.length, 0);
                 done();
             });
     });
@@ -37,7 +38,8 @@ xdescribe('Server "/foodtrucks" route', function() {
         sjLongitude + '&limit=' + limit + '&within=' + within;
 
         request(app)
-            .get('/foodtrucks' + queryString)
+            .get('/foodtrucks')
+            .query(queryString)
             .expect(200)
             .end(function(err, res) {
                 assert.equal(0, res.body.length);
