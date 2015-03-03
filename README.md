@@ -31,12 +31,13 @@ So, MongoDB was chosen for several reasons:
 - I didn't have that much experience with MongoDB and wanted to get more experience with it :).
 
 # Development
-Run `npm install` for dependencies, `npm start` to start the express server, `mongod` to start the mongodb server, and `node bin/getAPIData` to populate the local database.
+Run `npm install` for dependencies, `npm start` to start the express server, `mongod` to start the mongodb server, `node bin/getAPIData` to populate the local database, and `npm test` to run tests.
 
 # Next steps for app
-Test coverage of bin/getAPIData.
 
-Front end.
+Paging, throttling, and authentication on the backend. Allowing for more complicated queries.
+
+Mobile-first front end that uses the google maps API and allows users to set query parameters via a GUI.
 
 Use the [Mobile Food Schedule](https://data.sfgov.org/Economy-and-Community/Mobile-Food-Schedule/jjew-r69b) dataset to only show trucks open at the current time.
 

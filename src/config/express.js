@@ -18,15 +18,9 @@ exports.pre = function(app) {
         extended: true
     }));
 
-    if (process.env.NODE_ENV === 'production') {
-        app.use(serveStatic(__dirname + '../../dist', {
-            'setHeaders': serverHelpers.cacheControl
-        }));
-    } else {
-        app.use(serveStatic(__dirname + '/../../app', {
-            'setHeaders': serverHelpers.cacheControl
-        }));
-    }
+    app.use(serveStatic(__dirname + '/../../app', {
+        'setHeaders': serverHelpers.cacheControl
+    }));
 };
 
 // Invoked after routes. As of now only error handlers.
