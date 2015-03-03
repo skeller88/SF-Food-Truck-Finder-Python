@@ -9,6 +9,14 @@ module.exports = function(grunt) {
                 files: {
                     'app/css/main.css': 'app/less/main.less'
                 }
+            },
+            production: {
+                options: {
+                    paths: ['app/less']
+                },
+                files: {
+                    'app/css/main.css': 'app/less/main.less'
+                }
             }
         },
         mochaTest: {
@@ -27,4 +35,6 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-less');
     grunt.loadNpmTasks('grunt-mocha-test');
     grunt.loadNpmTasks('grunt-contrib-watch');
+
+    grunt.registerTask('heroku', ['less']);
 };
