@@ -18,7 +18,7 @@ var FOOD_TRUCK_PATH = '/resource/rqzj-sfat.json';
 // DataSF limit on number of records per request is 50000. Having two requests
 // makes the API future proof for this particular resource. Currently the
 // resource only has ~670 records.
-var numRecords = 49999;
+var numRecords = 50000;
 var queryString1 = '?$limit=' + numRecords + '&$order=:id';
 var queryString2 = '?$limit=' + numRecords + '&$order=:id&$offset=' +
 numRecords;
@@ -78,8 +78,6 @@ module.exports = function(endCallback){
             ' food trucks from DataSF.');
 
         FoodTrucks.updateFoodTrucks(foodTruckDocs, function(results) {
-            db.close();
-            console.log(results);
             endCallback(err, results);
         });
     });

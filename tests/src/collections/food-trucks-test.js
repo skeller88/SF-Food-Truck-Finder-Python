@@ -7,8 +7,9 @@ var getAPIData = require('./../../../src/workers/get-api-data');
 
 // Variables defined before each test; reused in query strings
 // TODO(shane): add to dummy data module to make more DRY
-var sfLatitude, sfLongitude, sjLatitude, sjLongitude, limit, within;
+var db, sfLatitude, sfLongitude, sjLatitude, sjLongitude, limit, within;
 beforeEach(function() {
+    // Open the database in case the database was closed by another test
     // Coordinates of a random food truck in San Francisco; highly likely that
     // these coordinates are within 10 miles of all of the other food trucks.
     sfLatitude = 37.7111428086172;
@@ -59,7 +60,7 @@ describe('FoodTrucks collection - updateFoodTrucks', function() {
     // TODO(shane): better way to repopulate the database without coupling
     // the passing of these tests to getAPIData working properly?
     afterEach(function(done) {
-        getAPIData(function() {
+        getAPIData(function(err, results) {
             done();
         });
     });
