@@ -21,17 +21,17 @@ exports.find = function(req, res, next) {
 
     } catch(err) {
         res.status(400);
-        next(err);
+        return next(err);
     }
 
     if (!(latitude && longitude)) {
         res.status(400);
-        next(new Error('Both latitude and longitude must be defined.'));
+        return next(new Error('Both latitude and longitude must be defined.'));
     }
 
     if (limit <= 0 || within <= 0) {
         res.status(400);
-        next(new Error('Limit and within must be >= 0.'));
+        return next(new Error('Limit and within must be >= 0.'));
     }
 
     var coordinates = [longitude, latitude];
