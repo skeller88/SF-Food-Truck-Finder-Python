@@ -4,6 +4,7 @@ var FoodTrucks = require('./../collections/food-trucks');
 // Expects a longitude and latitude query string, and handles the logic of
 // defining the optional paramaters "limit" and "within", as well as ensuring
 // the proper type of all parameters.
+// TODO(shane): implement paging for requests with higher limits (> 30)
 exports.find = function(req, res, next) {
     var validParams = {
         latitude: true,
