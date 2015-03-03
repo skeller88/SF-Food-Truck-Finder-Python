@@ -8,10 +8,14 @@ var app = express();
 
 var db = require('./config/db');
 
-require('./config/express')(app);
+// pre-route middleware
+require('./config/express').pre(app);
 
 // Routes
 app.get('/foodtrucks', foodTrucks.find);
+
+// post-route middleware
+require('./config/express').post(app);
 
 http.createServer(app).listen(app.get('port'), function() {
     console.info('Server now listening on port', app.get('port'));

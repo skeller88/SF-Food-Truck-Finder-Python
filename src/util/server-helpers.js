@@ -54,14 +54,12 @@ exports.convertDataToDocs = function(foodTrucksData) {
     });
 };
 
-// exports.logErrors = function(err, req, res, next) {
-//     console.error(err.stack);
-//     next(err);
-// };
+exports.logErrors = function(err, req, res, next) {
+    console.error(err.stack);
+    next(err);
+};
 
 exports.handleErrors = function(err, req, res, next) {
-    if (err) {
-        res.status(res.status || 500);
-        res.send('err');
-    }
+    res.status(res.statusCode || 500);
+    res.send(err.message);
 };

@@ -6,6 +6,20 @@ var FoodTrucks = require('./../collections/food-trucks');
 // defining the optional paramaters "limit" and "within", as well as ensuring
 // the proper type of all parameters.
 exports.find = function(req, res, next) {
+    var validParams = {
+        latitude: true,
+        limit: true,
+        longitude: true,
+        within: true,
+    };
+
+    for (var param in req.query) {
+        if (req.query.hasOwnProperty(param) && !validParams[param]) {
+            res.status(400);
+            return next(new Error('Invalid query parameter.'));
+        }
+    }
+
     var limit, within, longitude, latitude;
     try {
         // TODO(shane): make translation of query string to integers

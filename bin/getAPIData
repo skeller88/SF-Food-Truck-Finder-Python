@@ -2,6 +2,7 @@
 
 var async = require('async');
 var http = require('http');
+var underscore = require('underscore');
 
 var db = require('./../src/config/db');
 var FoodTrucks = require('./../src/collections/food-trucks');
@@ -24,21 +25,20 @@ var queryString1 = '?$limit=' + numRecords + '&$order=:id';
 var queryString2 = '?$limit=' + numRecords + '&$order=:id&$offset=' +
 numRecords;
 
-var firstEndpointOptions = {
+var endpointOptions = {
     headers: {
         'X-App-Token': APP_TOKEN
     },
     host: FOOD_TRUCK_HOST,
-    path: FOOD_TRUCK_PATH + queryString1
 };
 
-var secondEndpointOptions = {
-    headers: {
-        'X-App-Token': APP_TOKEN
-    },
-    host: FOOD_TRUCK_HOST,
+var firstEndpointOptions = _.extend(endpointOptions, {
+    path: FOOD_TRUCK_PATH + queryString1
+});
+
+var secondEndpointOptions = _.extend(endpointOptions, {
     path: FOOD_TRUCK_PATH + queryString2
-};
+});
 
 // TODO(shane): right now this logic isn't necessary because I'm not using
 // the larger database at '/resource/jjew-r69b.json'. Keep it anyways because
@@ -52,8 +52,6 @@ async.parallel([
         });
     },
     function(callback) {
-        var body = '';
-
         http.get(secondEndpointOptions, function(res) {
             serverHelpers.collectData(res, callback);
         });
@@ -64,9 +62,11 @@ async.parallel([
         return;
     }
 
+    // TODO(shane): catch any JSON.parse() exceptions
     var firstFoodTrucks = JSON.parse(results[0]);
     var secondFoodTrucks = JSON.parse(results[1]);
 
+    // TODO(shane): better way to join arrays without copying both
     allFoodTrucks = firstFoodTrucks.concat(secondFoodTrucks);
 
     foodTruckDocs = serverHelpers.convertDataToDocs(allFoodTrucks);

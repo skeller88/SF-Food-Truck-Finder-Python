@@ -59,6 +59,15 @@ describe('Server "/foodtrucks" route invalid requests - ', function() {
             .expect(404, done);
     });
 
+    it('invalid parameter', function(done) {
+        var queryString = 'latitude=' + sfLatitude + '&longitude=' +
+        sfLongitude + '&foo=bar';
+        request(app)
+            .get('/foodtrucks')
+            .query(queryString)
+            .expect(400, done);
+    });
+
     it('both latitude and longitude are missing', function(done) {
         request(app)
             .get('/foodtrucks')
