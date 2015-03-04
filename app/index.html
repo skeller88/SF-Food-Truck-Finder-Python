@@ -66,44 +66,46 @@
                             <p><strong>Example Values</strong>: <code>10,0.5,2.7</code></p>
                     </div>
                 </div>
-                <p><b>Sample request:</b>
+                <h3>Sample Request</h3>
+                    <pre>
+                    <code>
+http://sf-food-truck-finder.herokuapp.com/foodtrucks?
+latitude=37.54123&longitude=-122.12343&limit=30
+                    </code>
+                </pre>
+                <h3>Sample Response</h3>
                 <pre><code>
-                http://sf-food-truck-finder.herokuapp.com/foodtrucks?
-                latitude=37.54123&longitude=-122.12343&limit=30
-                </code></pre>
-                <p><b>Sample response:</b>
-                <pre><code>
-                [
-                  {
-                    "address": "301 EXECUTIVE PARK BLVD",
-                    "fooditems": "Cold Truck:
-                    Pre-packaged Sandwiches:
-                    Various  Beverages: Salads: Snacks",
-                    "location": {
-                      "type": "Point",
-                      "coordinates": [
-                        -122.39001633364,
-                        37.711632281195
-                      ]
-                    },
-                    "name": "Golden Catering",
-                    "distance": 0.053290629421459
-                  },
-                  {
-                    "address": "150 EXECUTIVE PARK BLVD",
-                    "fooditems": "Cold Truck: Sandwiches:
-                    fruit: snacks: candy: hot  and cold drinks",
-                    "location": {
-                      "type": "Point",
-                      "coordinates": [
-                        -122.39354336301,
-                        37.710837931141
-                      ]
-                    },
-                    "name": "May Catering",
-                    "distance": 0.15330720036206
-                  }
-                ]
+[
+  {
+    "address": "301 EXECUTIVE PARK BLVD",
+    "fooditems": "Cold Truck:
+    Pre-packaged Sandwiches:
+    Various  Beverages: Salads: Snacks",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        -122.39001633364,
+        37.711632281195
+      ]
+    },
+    "name": "Golden Catering",
+    "distance": 0.053290629421459
+  },
+  {
+    "address": "150 EXECUTIVE PARK BLVD",
+    "fooditems": "Cold Truck: Sandwiches:
+    fruit: snacks: candy: hot  and cold drinks",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        -122.39354336301,
+        37.710837931141
+      ]
+    },
+    "name": "May Catering",
+    "distance": 0.15330720036206
+  }
+]
                 </code></pre>
                 </p>
             </section>
