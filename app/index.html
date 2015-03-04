@@ -7,70 +7,85 @@
         <link rel='stylesheet' href='css/main.css'>
     </head>
     <body>
-        <header>
-            <h1 class='sk-page-title'>Food Truck Finder API</h1>
+        <header class='sk-page-title'>
+            <span class='sk-page-title-text'>Food Truck Finder API</span>
         </header>
-        <section>
-            <p>This API was built by <a href='//www.shanemkeller.com'>skeller88</a> and uses the <a href='//data.sfgov.org/Economy-and-Community/Mobile-Food-Facility-Permit/rqzj-sfat'>Mobile Food Facility Permit</a> dataset from <a href='//data.sfgov.org/'>Data SF</a>.</p>
+        <div class='sk-content'>
+            <section>
+                <p>This API was built by <a href='//www.shanemkeller.com'>skeller88</a> and uses the <a href='//data.sfgov.org/Economy-and-Community/Mobile-Food-Facility-Permit/rqzj-sfat'>Mobile Food Facility Permit</a> dataset from <a href='//data.sfgov.org/'>Data SF</a>.</p>
 
-            <p>It provides the ability to retrieve all of the food trucks that may be within a certain radius of a particular coordinate.</p>
+                <p>It provides the ability to retrieve all of the food trucks that may be within a certain radius of a particular coordinate.</p>
 
-            <p>Open up devtools to see your current coordinates. You can use those coordinates to query the API, or choose your own!</p>
-        </section>
-        <hr>
-        <section>
-            <h2>Endpoints</h2>
-            <h4 class='sk-endpoint-title'>GET /foodtrucks</h4>
-            <b>Url</b>
-            <p>http://sf-food-truck-finder.herokuapp.com/foodtrucks</p>
-            <b>Parameters</b>
-            <ul>
-                <li>Latitude - float </li>
-                <li>Longitude - float </li>
-                <li>Limit - integer - Optional. Defaults to 10. Must be > 0.
-                <li>Within - float - Optional. Defaults to 1 mile. Must be > 0. Maximum distance from coordinate to search, in miles.</li>
-            </ul>
-            <p><b>Sample request:</b>
-            <pre><code>
-            http://sf-food-truck-finder.herokuapp.com/foodtrucks?
-            latitude=37.54123&longitude=-122.12343&limit=30
-            </code></pre>
-            <p><b>Sample response:</b>
-            <pre><code>
-            [
-              {
-                "address": "301 EXECUTIVE PARK BLVD",
-                "fooditems": "Cold Truck:
-                Pre-packaged Sandwiches:
-                Various  Beverages: Salads: Snacks",
-                "location": {
-                  "type": "Point",
-                  "coordinates": [
-                    -122.39001633364,
-                    37.711632281195
-                  ]
-                },
-                "name": "Golden Catering",
-                "distance": 0.053290629421459
-              },
-              {
-                "address": "150 EXECUTIVE PARK BLVD",
-                "fooditems": "Cold Truck: Sandwiches:
-                fruit: snacks: candy: hot  and cold drinks",
-                "location": {
-                  "type": "Point",
-                  "coordinates": [
-                    -122.39354336301,
-                    37.710837931141
-                  ]
-                },
-                "name": "May Catering",
-                "distance": 0.15330720036206
-              }
-            ]
-            </code></pre>
-            </p>
-        </section>
+                <p>Open up devtools to see your current coordinates. You can use those coordinates to query the API, or choose your own!</p>
+            </section>
+            <hr>
+            <h1>Food Truck Endpoints</h1>
+            <section class="sk-endpoint">
+                <header>
+                    <h2>
+                        <span class="sk-ep-method"> GET</span>
+                        <span class="sk-ep-url">/foodtrucks</span>
+                    </h2>
+                </header>
+                <h3>Resource URL</h3>
+                <code>https://sf-food-truck-finder.herokuapp.com/foodtrucks</code>
+                <h3>Resource Information</h3>
+                <ul>
+                    <li>Latitude - float </li>
+                    <li>Longitude - float </li>
+                    <li>Limit - integer - Optional. Defaults to 10. Must be > 0.
+                    <li>Within - float - Optional. Defaults to 1 mile. Must be > 0. Maximum distance from coordinate to search, in miles.</li>
+                </ul>
+
+                <h3>Parameters</h3>
+                <ul>
+                    <li>Latitude - float </li>
+                    <li>Longitude - float </li>
+                    <li>Limit - integer - Optional. Defaults to 10. Must be > 0.
+                    <li>Within - float - Optional. Defaults to 1 mile. Must be > 0. Maximum distance from coordinate to search, in miles.</li>
+                </ul>
+                <p><b>Sample request:</b>
+                <pre><code>
+                http://sf-food-truck-finder.herokuapp.com/foodtrucks?
+                latitude=37.54123&longitude=-122.12343&limit=30
+                </code></pre>
+                <p><b>Sample response:</b>
+                <pre><code>
+                [
+                  {
+                    "address": "301 EXECUTIVE PARK BLVD",
+                    "fooditems": "Cold Truck:
+                    Pre-packaged Sandwiches:
+                    Various  Beverages: Salads: Snacks",
+                    "location": {
+                      "type": "Point",
+                      "coordinates": [
+                        -122.39001633364,
+                        37.711632281195
+                      ]
+                    },
+                    "name": "Golden Catering",
+                    "distance": 0.053290629421459
+                  },
+                  {
+                    "address": "150 EXECUTIVE PARK BLVD",
+                    "fooditems": "Cold Truck: Sandwiches:
+                    fruit: snacks: candy: hot  and cold drinks",
+                    "location": {
+                      "type": "Point",
+                      "coordinates": [
+                        -122.39354336301,
+                        37.710837931141
+                      ]
+                    },
+                    "name": "May Catering",
+                    "distance": 0.15330720036206
+                  }
+                ]
+                </code></pre>
+                </p>
+            </section>
+        </div>
     </body>
     <script src='js/util/geolocation.js'></script>
     <script>
