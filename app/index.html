@@ -26,24 +26,46 @@
                         <span class="sk-ep-method"> GET</span>
                         <span class="sk-ep-url">/foodtrucks</span>
                     </h2>
+                    <p>
+                        Returns the closest food trucks to a given latitude and longitude, in order of proximity.
+                    </p>
                 </header>
                 <h3>Resource URL</h3>
                 <code>https://sf-food-truck-finder.herokuapp.com/foodtrucks</code>
-                <h3>Resource Information</h3>
-                <ul>
-                    <li>Latitude - float </li>
-                    <li>Longitude - float </li>
-                    <li>Limit - integer - Optional. Defaults to 10. Must be > 0.
-                    <li>Within - float - Optional. Defaults to 1 mile. Must be > 0. Maximum distance from coordinate to search, in miles.</li>
-                </ul>
 
                 <h3>Parameters</h3>
-                <ul>
-                    <li>Latitude - float </li>
-                    <li>Longitude - float </li>
-                    <li>Limit - integer - Optional. Defaults to 10. Must be > 0.
-                    <li>Within - float - Optional. Defaults to 1 mile. Must be > 0. Maximum distance from coordinate to search, in miles.</li>
-                </ul>
+                <div class='sk-parameters'>
+                    <div class='sk-param'>
+                        <span class='sk-param-name'>
+                            Latitude
+                        </span>
+                            <p class='sk-param-desc'>Latitude coordinate for which nearby food trucks are found.</p>
+                            <p><strong>Example Values</strong>: <code>37.12341,44.5</code></p>
+                    </div>
+                    <div class='sk-param'>
+                        <span class='sk-param-name'>
+                            Longitude
+                        </span>
+                            <p class='sk-param-desc'>Longitude coordinate for which nearby food trucks are found.</p>
+                            <p><strong>Example Values</strong>: <code>-122.51234,-121</code></p>
+                    </div>
+                    <div class='sk-param'>
+                        <span class='sk-param-name'>
+                            Limit
+                            <span>Optional</span>
+                        </span>
+                            <p class='sk-param-desc'>Maximum number of results to return. Defaults to 10. Must be > 0.</p>
+                            <p><strong>Example Values</strong>: <code>10,1000,45</code></p>
+                    </div>
+                    <div class='sk-param'>
+                        <span class='sk-param-name'>
+                            Within
+                            <span>Optional</span>
+                        </span>
+                            <p class='sk-param-desc'>Maximum distance from coordinate to search, in miles.Defaults to 1 mile. Must be > 0.</p>
+                            <p><strong>Example Values</strong>: <code>10,0.5,2.7</code></p>
+                    </div>
+                </div>
                 <p><b>Sample request:</b>
                 <pre><code>
                 http://sf-food-truck-finder.herokuapp.com/foodtrucks?
