@@ -4,18 +4,18 @@ module.exports = function(grunt) {
         less: {
             development: {
                 options: {
-                    paths: ['app/less']
+                    paths: ['app/static/less']
                 },
                 files: {
-                    'app/css/main.css': 'app/less/main.less'
+                    'app/static/css/main.css': 'app/static/less/main.less'
                 }
             },
             production: {
                 options: {
-                    paths: ['app/less']
+                    paths: ['app/static/less']
                 },
                 files: {
-                    'app/css/main.css': 'app/less/main.less'
+                    'app/static/css/main.css': 'app/static/less/main.less'
                 }
             }
         },
@@ -29,7 +29,7 @@ module.exports = function(grunt) {
           }
         },
         watch: {
-            files: ['app/less/*.less', 'src/**/*.js'],
+            files: ['app/static/less/*.less', 'src/**/*.js'],
             tasks: ['less', 'mochaTest']
         }
     });
