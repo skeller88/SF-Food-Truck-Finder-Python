@@ -2,7 +2,7 @@
 
 # Distribution / packaging
 .Python
-app/css
+app/static/css
 dist/
 env/
 node_modules/
