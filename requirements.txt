@@ -8,4 +8,5 @@ itsdangerous==0.24
 pep8==1.6.2
 pyflakes==0.8.1
 pymongo==2.8
+requests==2.5.3
 wsgiref==0.1.2

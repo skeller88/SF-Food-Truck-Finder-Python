@@ -1,6 +1,8 @@
 from flask import request
 
 
+from app.models import food_trucks
+
 def find():
     valid_params = {
         'latitude': True,
@@ -30,5 +32,21 @@ def find():
     except ValueError as e:
         return e
 
-    print limit, within, latitude, longitude
+    if not (latitude and longitude):
+        return 'Both latitude and longitude must be defined.'
+
+    if limit <= 0 or within <= 0:
+        return 'Limit and within must be >= 0.'
+
+    coordinates = [longitude, latitude]
+
+    options = {
+        'coordinates': coordinates,
+        'limit': limit,
+        'within': within
+    }
+
+    a = food_trucks.find_nearest()
+
+    print a
     return 'foo'
