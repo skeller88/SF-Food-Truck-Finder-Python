@@ -1,7 +1,8 @@
 import sys
 
-from flask import current_app as app
 import requests
+
+from app.config import Config
 
 
 def get_api_data():
@@ -9,9 +10,11 @@ def get_api_data():
     # makes the API future proof for this particular resource. Currently the
     # resource only has ~670 records.
     numRecords = 50
+    queryString1 = '?$limit=' + numRecords + '&$order=:id'
+    queryString2 = '?$limit=' + numRecords + '&$order=:id&$offset=' + numRecords
 
     headers = {
-        'X-App-Token': app.config['APP_TOKEN']
+        'X-App-Token': config.APP_TOKEN
     }
 
     payload_1 = {
@@ -25,9 +28,7 @@ def get_api_data():
         '$order': ':id',
     }
 
-    r1 = requests.get(app.config['FOOD_TRUCK_URL'], params=payload_1, headers=headers)
-    r2 = requests.get(app.config['FOOD_TRUCK_URL'], params=payload_2, headers=headers)
+    r1 = requests.get(config.FOOD_TRUCK_URL, params=payload_1, headers=headers)
+    r2 = requests.get(config.FOOD_TRUCK_URL, params=payload_2, headers=headers)
 
-    print '-------------', r1
-
-get_api_data()
+    print r1
