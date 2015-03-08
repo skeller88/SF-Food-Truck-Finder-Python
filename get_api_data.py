@@ -2,8 +2,9 @@ import sys
 
 import requests
 
-from config import Config
-from util import server_helpers
+from app.config import Config
+from app.models import food_trucks
+from app.util import server_helpers
 
 def get_api_data():
     # DataSF limit on number of records per request is 50000. Having two requests
@@ -33,5 +34,7 @@ def get_api_data():
     food_truck_docs = server_helpers.convert_data_to_docs(all_food_trucks)
 
     print 'Downloaded', len(food_truck_docs), 'food trucks from DataSF.'
+
+    food_trucks.update_food_trucks(food_truck_docs)
 
 get_api_data()

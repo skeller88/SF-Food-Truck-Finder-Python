@@ -1,5 +1,7 @@
+from app.config import DB
 
 
+food_trucks = DB.food_trucks
 radius_of_earth_in_miles = 3959
 meters_per_mile = 1609.34
 
@@ -19,5 +21,11 @@ def find_nearest(options):
     within = (options['within'] if options['within'] else options['within'] * meters_per_mile)
     return 4
 
-def update_food_trucks(food_trucks):
-    return 'updated'
+def update_food_trucks(updated):
+    food_trucks.drop()
+    print 'Removed existing food trucks.'
+
+    food_trucks.insert(updated)
+    results = list(food_trucks.find())
+
+    print 'Replaced with', len(results), 'food trucks.'
