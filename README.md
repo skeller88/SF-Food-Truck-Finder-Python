@@ -2,7 +2,7 @@
 
 An API service that, given a set of coordinates, returns food trucks likely to be nearby.
 
-[API link](http://sf-food-truck-finder.herokuapp.com).
+[Node version of app](https://github.com/skeller88/SF-Food-Truck-Finder).
 
 # Why SF Food Truck Finder?
 It's hard to find food trucks nearby in San Francisco. Yelp does not have the data, and scouring the twitter feeds of food trucks takes a lot of time and existing knowledge of the names of the food trucks.
@@ -10,9 +10,9 @@ It's hard to find food trucks nearby in San Francisco. Yelp does not have the da
 DataSF provides an API with access to food truck information, as well as other data sets. This project is an API specifically built for the food truck data set only.
 
 # App architecture
-The project focuses on the back-end. Using Heroku scheduler and Node, a worker task downloads all of the data from the DataSF dataset and updates a MongoDB database also deployed on Heroku via the [Compose](https://www.compose.io/) addon. Request patterns are irregular and in the same time zone, so background jobs are  scheduled at 4am, when no users are using the app.
+The project focuses on the back-end. Using Heroku scheduler and Flask, a worker task downloads all of the data from the DataSF dataset and updates a MongoDB database also deployed on Heroku via the [Compose](https://www.compose.io/) addon. Request patterns are irregular and in the same time zone, so background jobs are  scheduled at 4am, when no users are using the app.
 
-For an I/O heavy application running on a single server due to cost constraints, an asynchronous platform/framework was the logical choice. Node was chosen over another asynchronous solution like Tornado because 1) Node has a larger community than Tornado or Twisted (measured by posts on Stack Overflow), and 2) I already know Node and time for this project was limited, making it not feasible to learn a new asynchronous server platform/framework.
+After writing the app in Node, I wanted to get more experience with a synchronous Python framework like Flask. Flask is a microframework with basic request/response handling that's a great choice for a small application like this one.
 
 I had never done a project involving spatial queries, so I looked into geo-based databases. Currently, the most popular two are MongoDB and PostGIS, a spatial database extender for PostgreSQL.
 
@@ -31,7 +31,7 @@ So, MongoDB was chosen for several reasons:
 - I didn't have that much experience with MongoDB and wanted to get more experience with it :).
 
 # Development
-Run `npm install` for dependencies, `npm start` to start the express server, `mongod` to start the mongodb server, `node bin/getAPIData` to populate the local database, and `npm test` to run tests.
+Set up your virtual environment. Then run `pip install -r requirements.txt` for dependencies, `python run.py` to start the Flask server, `mongod` to start the mongodb server, `python get_api_data.py` to populate the local database, and `nosetests` to run tests.
 
 # Next steps for app
 

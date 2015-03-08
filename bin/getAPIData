@@ -1,6 +1,0 @@
-#!/app/.heroku/node/bin/node
-
-var db = require('./../src/config/db');
-require('./../src/workers/get-api-data')(function(err, results) {
-    db.close();
-});
