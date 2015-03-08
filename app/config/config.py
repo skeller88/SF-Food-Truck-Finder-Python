@@ -1,9 +1,10 @@
+import os
 
 
 class Config(object):
     # DataSF API
     APP_TOKEN = 'S9xZv2avu4REIdEZhsDGgglvS'
-    FOOD_TRUCK_URL = 'data.sfgov.org/resource/rqzj-sfat.json'
+    FOOD_TRUCK_URL = 'https://data.sfgov.org/resource/rqzj-sfat.json'
 
     BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 

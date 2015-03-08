@@ -1,1 +1,1 @@
-import config.Config as config
+from config import Config
