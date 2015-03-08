@@ -1,6 +1,8 @@
 import os
 
 
+# TODO(shane): refactor -
+# https://realpython.com/blog/python/flask-by-example-part-1-project-setup/
 class Config(object):
     # DataSF API
     APP_TOKEN = 'S9xZv2avu4REIdEZhsDGgglvS'
