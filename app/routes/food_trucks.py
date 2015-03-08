@@ -1,5 +1,6 @@
-from flask import request
+import json
 
+from flask import request
 
 from app.models import food_trucks
 
@@ -30,6 +31,7 @@ def find():
         latitude = float(params.get('latitude')) if (
             params.get('latitude')) else None
     except ValueError as e:
+        print '****************************'
         return e
 
     if not (latitude and longitude):
@@ -46,7 +48,6 @@ def find():
         'within': within
     }
 
-    a = food_trucks.find_nearest()
+    a = food_trucks.find_nearest(options)
 
-    print a
-    return 'foo'
+    return json.dumps(a)

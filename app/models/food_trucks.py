@@ -1,3 +1,6 @@
+import pymongo
+
+
 from app.config import DB
 
 
@@ -18,21 +21,25 @@ def find_nearest(options):
       array as 2nd parameter."""
     # TODO(shane): does this pattern work in python too?
     limit = options['limit'] or 10
-    within = (options['within'] if options['within'] else options['within'] * meters_per_mile)
 
-    food_trucks.ensure_index({'location': '2dsphere'})
-    food_trucks.aggregate([
+    within = options['within'] if options['within'] else 2
+    within *= meters_per_mile
+
+    food_trucks.ensure_index([('location', pymongo.GEOSPHERE)])
+
+    # query is a 'dict' - {'ok': boolean, 'result': list}
+    query = food_trucks.aggregate([
         {
             '$geoNear': {
-                'distance_field': 'distance',
+                'distanceField': 'distance',
                 # This query must have the property 'spherical: true'.
                 # Because of that, the distance is returned in meters and
                 # needs to be converted to miles.
-                'distance_multiplier': 1/meters_per_mile,
-                'max_distance': within,
+                'distanceMultiplier': 1/meters_per_mile,
+                'maxDistance': within,
                 'near': {
                     'type': 'Point',
-                    'coordinates': options.coordinates
+                    'coordinates': options['coordinates']
                 },
                 'spherical': True,
             },
@@ -59,6 +66,8 @@ def find_nearest(options):
             }
         },
     ])
+
+    return query['result']
 
 def update_food_trucks(updated):
     original = len(list(food_trucks.find()))
