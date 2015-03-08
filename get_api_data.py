@@ -3,7 +3,7 @@ import sys
 import requests
 
 from app.config import Config
-from app.models import food_trucks
+from app.collections import food_trucks
 from app.util import server_helpers
 
 def get_api_data():

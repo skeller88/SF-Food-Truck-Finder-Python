@@ -2,7 +2,7 @@ import json
 
 from flask import request
 
-from app.models import food_trucks
+from app.collections import food_trucks
 
 def find():
     valid_params = {
