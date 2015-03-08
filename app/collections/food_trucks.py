@@ -19,8 +19,8 @@ def find_nearest(options):
       'within' - radius to search within, in miles
       @param {callback} function - expects an Error object as 1st parameter and
       array as 2nd parameter."""
-    limit = options['limit'] or 10
-    within = options['within'] or 2
+    limit = options.get('limit', 10)
+    within = options.get('within', 2)
     within *= meters_per_mile
 
 

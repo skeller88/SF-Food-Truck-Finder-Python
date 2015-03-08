@@ -37,4 +37,5 @@ def get_api_data():
 
     food_trucks.update_food_trucks(food_truck_docs)
 
-get_api_data()
+if __name__ == '__main__':
+    get_api_data()
